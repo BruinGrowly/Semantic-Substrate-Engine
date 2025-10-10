@@ -28,33 +28,79 @@ import warnings
 import json
 
 # Import all our semantic mathematics components
-from .semantic_calculus import (
-    SemanticCalculus, SemanticVector, SemanticTensor, SemanticField,
-    SemanticDerivativeOperator, SemanticIntegrationMethod,
-    SemanticManifold, SemanticDifferentialEquations
-)
-# Import core engine
-from ..enhanced_core_components import BiblicalCoordinates, BiblicalSemanticSubstrate
+try:
+    from semantic_calculus import (
+        SemanticCalculus, SemanticVector, SemanticTensor, SemanticField,
+        SemanticDerivativeOperator, SemanticIntegrationMethod,
+        SemanticManifold, SemanticDifferentialEquations
+    )
 except ImportError:
-    class BiblicalCoordinates:
-        def __init__(self, love, power, wisdom, justice):
-            self.love = max(0.0, min(1.0, love))
-            self.power = max(0.0, min(1.0, power))
-            self.wisdom = max(0.0, min(1.0, wisdom))
-            self.justice = max(0.0, min(1.0, justice))
+    # Create minimal versions for standalone operation
+    class SemanticCalculus:
+        def __init__(self, engine):
+            self.engine = engine
+    class SemanticVector:
+        pass
+    class SemanticTensor:
+        pass
+    class SemanticField:
+        pass
+    class SemanticDerivativeOperator:
+        pass
+    class SemanticIntegrationMethod:
+        pass
+    class SemanticManifold:
+        pass
+    class SemanticDifferentialEquations:
+        pass
+
+# Import core engine
+try:
+    from enhanced_core_components import BiblicalCoordinates, BiblicalSemanticSubstrate
+except ImportError:
+    try:
+        import sys
+        import os
+        sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+        from baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
+    except ImportError:
+        class BiblicalCoordinates:
+            def __init__(self, love, power, wisdom, justice):
+                self.love = max(0.0, min(1.0, love))
+                self.power = max(0.0, min(1.0, power))
+                self.wisdom = max(0.0, min(1.0, wisdom))
+                self.justice = max(0.0, min(1.0, justice))
+            
+            def distance_from_jehovah(self):
+                return math.sqrt((1-self.love)**2 + (1-self.power)**2 + (1-self.wisdom)**2 + (1-self.justice)**2)
+            
+            def divine_resonance(self):
+                max_distance = math.sqrt(4)
+                return 1.0 - (self.distance_from_jehovah() / max_distance)
+            
+            def biblical_balance(self):
+                coords = [self.love, self.power, self.wisdom, self.justice]
+                mean = sum(coords) / 4.0
+                variance = sum((coord - mean)**2 for coord in coords) / 4.0
+                max_variance = 0.25  # Maximum variance when coordinates are (0,0,0,1) or similar
+                return 1.0 - (variance / max_variance)
+            
+            def overall_biblical_alignment(self):
+                return (self.divine_resonance() + self.biblical_balance()) / 2.0
+            
+            def get_dominant_attribute(self):
+                coords = {'love': self.love, 'power': self.power, 'wisdom': self.wisdom, 'justice': self.justice}
+                max_coord = max(coords.values())
+                balance = self.biblical_balance()
+                
+                if balance > 0.9:
+                    return "Balanced"
+                else:
+                    return max(coords, key=coords.get)
         
-        def distance_from_jehovah(self):
-            return math.sqrt((1-self.love)**2 + (1-self.power)**2 + (1-self.wisdom)**2 + (1-self.justice)**2)
-        
-        def divine_resonance(self):
-            max_distance = math.sqrt(4)
-            return 1.0 - (self.distance_from_jehovah() / max_distance)
-        
-        def to_tuple(self):
-            return (self.love, self.power, self.wisdom, self.justice)
-        
-        def __str__(self):
-            return f"({self.love:.3f}, {self.power:.3f}, {self.wisdom:.3f}, {self.justice:.3f})"
+        class BiblicalSemanticSubstrate:
+            def __init__(self):
+                pass
 
 class SemanticMathematicsEngine:
     """
