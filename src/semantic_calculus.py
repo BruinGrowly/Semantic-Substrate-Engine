@@ -46,6 +46,25 @@ except ImportError:
         def __str__(self):
             return f"({self.love:.3f}, {self.power:.3f}, {self.wisdom:.3f}, {self.justice:.3f})"
 
+# Import ICE-Centric capabilities
+try:
+    from ice_semantic_substrate_engine import (
+        ICESemanticSubstrateEngine,
+        SemanticCoordinates,
+        ThoughtType,
+        ContextDomain,
+        ICETransformationResult
+    )
+    ICE_CENTRIC_AVAILABLE = True
+except ImportError:
+    ICE_CENTRIC_AVAILABLE = False
+
+try:
+    from unified_ice_framework import UnifiedICEFramework
+    UNIFIED_ICE_AVAILABLE = True
+except ImportError:
+    UNIFIED_ICE_AVAILABLE = False
+
 class SemanticDerivativeOperator(Enum):
     """Types of semantic derivatives"""
     PARTIAL = "partial"           # Change with respect to one attribute
@@ -234,6 +253,19 @@ class SemanticCalculus:
             'justice': sp.Symbol('justice')
         }
         self.jehovah_coords = BiblicalCoordinates(1.0, 1.0, 1.0, 1.0)
+        
+        # Initialize ICE engines
+        if ICE_CENTRIC_AVAILABLE:
+            self.ice_centric_engine = ICESemanticSubstrateEngine()
+            print("[INITIALIZED] ICE-Centric engine for Semantic Calculus")
+        else:
+            self.ice_centric_engine = None
+        
+        if UNIFIED_ICE_AVAILABLE:
+            self.unified_ice_framework = UnifiedICEFramework()
+            print("[INITIALIZED] Unified ICE Framework for Semantic Calculus")
+        else:
+            self.unified_ice_framework = None
         
     def semantic_derivative(self, concept_func: Callable[[BiblicalCoordinates], float],
                           coords: BiblicalCoordinates,
@@ -596,6 +628,14 @@ class SemanticManifold:
             )
         
         return transported
+    
+    # ============================================================================
+    # ICE-CENTRIC INTEGRATION METHODS
+    # ============================================================================
+    
+    # ============================================================================
+    # ICE-CENTRIC INTEGRATION METHODS
+    # ============================================================================
 
 # Advanced semantic differential equations
 class SemanticDifferentialEquations:
