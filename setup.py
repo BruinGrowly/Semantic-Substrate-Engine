@@ -24,7 +24,7 @@ else:
 
 setup(
     name="semantic-substrate-engine",
-    version="2.2.0",
+    version="3.0.0",
     author="BruinGrowly",
     author_email="",
     description="A sophisticated semantic processing system combining mathematical precision with value-aligned computation",
