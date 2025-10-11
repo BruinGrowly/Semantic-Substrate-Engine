@@ -1,8 +1,14 @@
 """
-SEMANTIC SUBSTRATE ENGINE V2 - MAIN BIBLICAL IMPLEMENTATION
+SEMANTIC SUBSTRATE ENGINE V3 - ICE-INTEGRATED BIBLICAL IMPLEMENTATION
 
 Bible-based 4D coordinate system with Love, Power, Wisdom, Justice axes.
 Maintains biblical standards while operating flexibly in secular environments.
+
+VERSION 3.0 - ICE-Centric Integration:
+- Integrates Intent-Context-Execution (ICE) framework for enhanced semantic processing
+- Provides backward-compatible analyze_concept() method
+- Adds optional ICE-Centric analyze_concept_ice() method
+- Includes adapter functions for coordinate system conversion
 """
 
 import math
@@ -10,6 +16,20 @@ from typing import Dict, List, Tuple, Optional, Any, Set, Union
 from dataclasses import dataclass, field
 from enum import Enum
 import re
+
+# ICE-Centric engine import (optional - graceful degradation if not available)
+try:
+    from ice_semantic_substrate_engine import (
+        ICESemanticSubstrateEngine,
+        SemanticCoordinates,
+        ThoughtType,
+        ContextDomain,
+        ICETransformationResult
+    )
+    ICE_AVAILABLE = True
+except ImportError:
+    ICE_AVAILABLE = False
+    print("[WARNING] ICE-Centric engine not available. Using standard biblical substrate only.")
 
 class BiblicalPrinciple(Enum):
     """Core biblical principles for semantic analysis"""
@@ -156,10 +176,162 @@ class BiblicalCoordinates:
     def __str__(self) -> str:
         """String representation of coordinates"""
         return f"({self.love:.3f}, {self.power:.3f}, {self.wisdom:.3f}, {self.justice:.3f})"
-    
+
     def __repr__(self) -> str:
         """Official representation of coordinates"""
         return f"BiblicalCoordinates{self.__str__()}"
+
+
+# ============================================================================
+# ICE-CENTRIC INTEGRATION - ADAPTER FUNCTIONS
+# ============================================================================
+
+def biblical_to_semantic(biblical_coords: BiblicalCoordinates) -> 'SemanticCoordinates':
+    """
+    Convert BiblicalCoordinates to ICE SemanticCoordinates
+
+    Args:
+        biblical_coords: BiblicalCoordinates to convert
+
+    Returns:
+        SemanticCoordinates with same values
+
+    Note:
+        Both coordinate systems use the same 4D space (LOVE, POWER, WISDOM, JUSTICE)
+    """
+    if not ICE_AVAILABLE:
+        raise ImportError("ICE-Centric engine not available. Cannot convert to SemanticCoordinates.")
+
+    return SemanticCoordinates(
+        love=biblical_coords.love,
+        power=biblical_coords.power,
+        wisdom=biblical_coords.wisdom,
+        justice=biblical_coords.justice
+    )
+
+
+def semantic_to_biblical(semantic_coords: 'SemanticCoordinates') -> BiblicalCoordinates:
+    """
+    Convert ICE SemanticCoordinates to BiblicalCoordinates
+
+    Args:
+        semantic_coords: SemanticCoordinates to convert
+
+    Returns:
+        BiblicalCoordinates with same values
+
+    Note:
+        Both coordinate systems use the same 4D space (LOVE, POWER, WISDOM, JUSTICE)
+    """
+    return BiblicalCoordinates(
+        love=semantic_coords.love,
+        power=semantic_coords.power,
+        wisdom=semantic_coords.wisdom,
+        justice=semantic_coords.justice
+    )
+
+
+def map_context_to_domain(context: str) -> 'ContextDomain':
+    """
+    Map string context to ICE ContextDomain enum
+
+    Args:
+        context: String context (e.g., 'biblical', 'educational', 'business')
+
+    Returns:
+        ContextDomain enum value
+
+    Note:
+        This allows backward compatibility with string-based contexts
+    """
+    if not ICE_AVAILABLE:
+        raise ImportError("ICE-Centric engine not available. Cannot map to ContextDomain.")
+
+    mapping = {
+        'biblical': ContextDomain.SPIRITUAL,
+        'religious': ContextDomain.SPIRITUAL,
+        'spiritual': ContextDomain.SPIRITUAL,
+        'ministry': ContextDomain.MINISTRY,
+        'ethical': ContextDomain.ETHICAL,
+        'moral': ContextDomain.ETHICAL,
+        'relational': ContextDomain.RELATIONAL,
+        'family': ContextDomain.RELATIONAL,
+        'educational': ContextDomain.EDUCATIONAL,
+        'school': ContextDomain.EDUCATIONAL,
+        'university': ContextDomain.EDUCATIONAL,
+        'academic': ContextDomain.EDUCATIONAL,
+        'general': ContextDomain.GENERAL,
+        'secular': ContextDomain.GENERAL,
+        'casual': ContextDomain.GENERAL,
+        'technical': ContextDomain.TECHNICAL,
+        'scientific': ContextDomain.TECHNICAL,
+        'business': ContextDomain.BUSINESS,
+        'professional': ContextDomain.BUSINESS,
+        'work': ContextDomain.BUSINESS,
+        'corporate': ContextDomain.BUSINESS
+    }
+
+    return mapping.get(context.lower(), ContextDomain.GENERAL)
+
+
+def infer_thought_type(text: str) -> 'ThoughtType':
+    """
+    Infer ThoughtType from text content
+
+    Args:
+        text: Input text to analyze
+
+    Returns:
+        ThoughtType enum value based on content analysis
+
+    Note:
+        Uses keyword matching to determine the most likely thought type.
+        Old system doesn't have thought types, so this enables ICE integration.
+    """
+    if not ICE_AVAILABLE:
+        raise ImportError("ICE-Centric engine not available. Cannot infer ThoughtType.")
+
+    text_lower = text.lower()
+
+    # Moral/ethical keywords
+    if any(word in text_lower for word in ['should', 'ought', 'right', 'wrong', 'moral', 'ethical', 'justice', 'righteous']):
+        return ThoughtType.MORAL_JUDGMENT
+
+    # Wisdom/practical keywords
+    if any(word in text_lower for word in ['wisdom', 'wise', 'prudent', 'practical', 'decision', 'choose', 'discern']):
+        return ThoughtType.PRACTICAL_WISDOM
+
+    # Divine/spiritual keywords
+    if any(word in text_lower for word in ['god', 'divine', 'holy', 'sacred', 'spiritual', 'jehovah', 'lord', 'christ']):
+        return ThoughtType.DIVINE_INSPIRATION
+
+    # Emotional keywords
+    if any(word in text_lower for word in ['feel', 'emotion', 'heart', 'love', 'compassion', 'mercy', 'grace']):
+        return ThoughtType.EMOTIONAL_EXPRESSION
+
+    # Theological keywords
+    if any(word in text_lower for word in ['theology', 'doctrine', 'scripture', 'biblical', 'faith', 'belief']):
+        return ThoughtType.THEOLOGICAL_QUESTION
+
+    # Interpersonal keywords
+    if any(word in text_lower for word in ['relationship', 'conflict', 'forgive', 'reconcile', 'communicate']):
+        return ThoughtType.INTERPERSONAL_CONFLICT
+
+    # Existential keywords
+    if any(word in text_lower for word in ['meaning', 'purpose', 'why', 'existence', 'life', 'death']):
+        return ThoughtType.EXISTENTIAL_QUESTION
+
+    # Creative keywords
+    if any(word in text_lower for word in ['create', 'design', 'imagine', 'innovate', 'express', 'art']):
+        return ThoughtType.CREATIVE_EXPRESSION
+
+    # Default to practical wisdom
+    return ThoughtType.PRACTICAL_WISDOM
+
+
+# ============================================================================
+# END ICE-CENTRIC INTEGRATION ADAPTERS
+# ============================================================================
 
 class BiblicalText:
     """
@@ -453,6 +625,9 @@ class BiblicalSemanticSubstrate:
         # System state
         self.analysis_count = 0
         self.last_analysis_time = 0
+
+        # ICE-Centric engine (lazy initialization)
+        self._ice_engine = None
     
     def _initialize_biblical_keywords(self) -> Dict[str, List[str]]:
         """Initialize comprehensive biblical keyword mappings"""
@@ -719,7 +894,139 @@ class BiblicalSemanticSubstrate:
         self.coordinate_cache[cache_key] = coordinates
         
         return coordinates
-    
+
+    # ============================================================================
+    # ICE-CENTRIC INTEGRATION METHODS
+    # ============================================================================
+
+    def analyze_concept_ice(self, text: str, thought_type: Optional['ThoughtType'] = None,
+                           context_domain: Optional['ContextDomain'] = None) -> 'ICETransformationResult':
+        """
+        Analyze concept using ICE-Centric Semantic Substrate Engine
+
+        This method provides enhanced semantic processing through the ICE framework:
+        - Intent: Extract and map semantic intent to 4D coordinates
+        - Context: Apply context-aware alignment with universal anchor
+        - Execution: Generate behaviorally-aligned output with execution strategy
+
+        Args:
+            text: Text to analyze
+            thought_type: Type of thought (optional, will be inferred if not provided)
+            context_domain: Context domain (optional, defaults to SPIRITUAL for biblical content)
+
+        Returns:
+            ICETransformationResult with complete transformation details
+
+        Raises:
+            ImportError: If ICE-Centric engine is not available
+
+        Example:
+            >>> engine = BiblicalSemanticSubstrate()
+            >>> result = engine.analyze_concept_ice("Show compassion and mercy")
+            >>> print(f"Alignment: {result.divine_alignment:.2%}")
+            >>> print(f"Strategy: {result.execution_strategy}")
+        """
+        if not ICE_AVAILABLE:
+            raise ImportError("ICE-Centric engine not available. Please install ice_semantic_substrate_engine.py")
+
+        # Lazy initialization of ICE engine
+        if self._ice_engine is None:
+            self._ice_engine = ICESemanticSubstrateEngine()
+
+        # Infer thought type if not provided
+        if thought_type is None:
+            thought_type = infer_thought_type(text)
+
+        # Default to SPIRITUAL context for biblical content
+        if context_domain is None:
+            context_domain = ContextDomain.SPIRITUAL
+
+        # Perform ICE transformation
+        ice_result = self._ice_engine.transform(text, thought_type, context_domain)
+
+        # Increment analysis counter
+        self.analysis_count += 1
+
+        return ice_result
+
+    def analyze_concept_enhanced(self, text: str, context: str = "general",
+                                use_ice: bool = False,
+                                thought_type: Optional['ThoughtType'] = None) -> Union[BiblicalCoordinates, 'ICETransformationResult']:
+        """
+        Enhanced concept analysis with optional ICE processing
+
+        This method provides backward-compatible analysis with opt-in ICE enhancement.
+        When use_ice=False, it uses the traditional analyze_concept() method.
+        When use_ice=True, it uses the ICE-Centric engine for enhanced processing.
+
+        Args:
+            text: Text to analyze
+            context: Context string (e.g., 'biblical', 'educational', 'business')
+            use_ice: Whether to use ICE-Centric processing (default: False for backward compatibility)
+            thought_type: Optional thought type for ICE processing (will be inferred if not provided)
+
+        Returns:
+            BiblicalCoordinates if use_ice=False, ICETransformationResult if use_ice=True
+
+        Example:
+            >>> engine = BiblicalSemanticSubstrate()
+            >>> # Traditional analysis
+            >>> coords = engine.analyze_concept_enhanced("wisdom", "biblical", use_ice=False)
+            >>> print(coords)
+            >>> # ICE-Centric analysis
+            >>> result = engine.analyze_concept_enhanced("wisdom", "biblical", use_ice=True)
+            >>> print(result.execution_strategy)
+        """
+        if use_ice and ICE_AVAILABLE:
+            # Map context string to ContextDomain enum
+            context_domain = map_context_to_domain(context)
+
+            # Use ICE-Centric processing
+            return self.analyze_concept_ice(text, thought_type, context_domain)
+        else:
+            # Use traditional processing
+            return self.analyze_concept(text, context)
+
+    def get_ice_engine(self) -> Optional['ICESemanticSubstrateEngine']:
+        """
+        Get the ICE-Centric engine instance
+
+        Returns:
+            ICESemanticSubstrateEngine if available, None otherwise
+
+        Example:
+            >>> engine = BiblicalSemanticSubstrate()
+            >>> ice = engine.get_ice_engine()
+            >>> if ice:
+            ...     print(f"ICE engine available: {ice}")
+        """
+        if not ICE_AVAILABLE:
+            return None
+
+        # Lazy initialization
+        if self._ice_engine is None:
+            self._ice_engine = ICESemanticSubstrateEngine()
+
+        return self._ice_engine
+
+    def is_ice_available(self) -> bool:
+        """
+        Check if ICE-Centric engine is available
+
+        Returns:
+            True if ICE engine can be used, False otherwise
+
+        Example:
+            >>> engine = BiblicalSemanticSubstrate()
+            >>> if engine.is_ice_available():
+            ...     result = engine.analyze_concept_ice("wisdom")
+        """
+        return ICE_AVAILABLE
+
+    # ============================================================================
+    # END ICE-CENTRIC INTEGRATION METHODS
+    # ============================================================================
+
     def analyze_biblical_text(self, biblical_text: str, context: str = "biblical") -> Dict[str, Any]:
         """
         Analyze biblical text with comprehensive semantic analysis
