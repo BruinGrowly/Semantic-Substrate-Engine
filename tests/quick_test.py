@@ -7,8 +7,10 @@ Verifies that all components are properly installed and functional.
 import sys
 import os
 
-# Add src to path for imports
-sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+# Add parent directory and src to path for imports
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, parent_dir)
+sys.path.insert(0, os.path.join(parent_dir, 'src'))
 
 def test_imports():
     """Test that all components can be imported"""
@@ -98,9 +100,9 @@ def test_core_functionality():
 def test_mathematical_precision():
     """Test mathematical precision"""
     print("\n Testing Mathematical Precision...")
-    
+
     try:
-        from src.baseline_biblical_substrate import BiblicalCoordinates
+        from baseline_biblical_substrate import BiblicalCoordinates
         
         # Test perfect coordinates
         perfect_coords = BiblicalCoordinates(1.0, 1.0, 1.0, 1.0)

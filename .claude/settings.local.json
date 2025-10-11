@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(git clone:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(test:*)",
+      "Bash(cat:*)",
+      "Bash(tree:*)",
+      "Bash(python:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
