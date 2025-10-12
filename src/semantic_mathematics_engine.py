@@ -29,7 +29,7 @@ import json
 
 # Import all our semantic mathematics components
 try:
-    from semantic_calculus import (
+    from .semantic_calculus import (
         SemanticCalculus, SemanticVector, SemanticTensor, SemanticField,
         SemanticDerivativeOperator, SemanticIntegrationMethod,
         SemanticManifold, SemanticDifferentialEquations
@@ -62,7 +62,7 @@ except ImportError:
         import sys
         import os
         sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-        from baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
+        from .baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
     except ImportError:
         class BiblicalCoordinates:
             def __init__(self, love, power, wisdom, justice):

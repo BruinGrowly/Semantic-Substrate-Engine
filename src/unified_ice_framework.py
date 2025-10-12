@@ -21,7 +21,7 @@ from datetime import datetime
 
 # Import primary ICE-Centric engine
 try:
-    from ice_semantic_substrate_engine import (
+    from .ice_semantic_substrate_engine import (
         ICESemanticSubstrateEngine,
         SemanticCoordinates,
         ThoughtType as ICEThoughtType,
@@ -36,7 +36,7 @@ except ImportError:
 
 # Import legacy biblical framework for extensions
 try:
-    from ice_framework import (
+    from .ice_framework import (
         ICEFramework,
         Intent as LegacyIntent,
         Context as LegacyContext,
@@ -582,12 +582,12 @@ class UnifiedICEFramework:
             return thought_type
         
         # Import from baseline for inference
-        from baseline_biblical_substrate import infer_thought_type
+        from .baseline_biblical_substrate import infer_thought_type
         return infer_thought_type(text)
     
     def _convert_to_ice_context_domain(self, context: str) -> 'ICEContextDomain':
         """Convert context string to ICE ContextDomain"""
-        from baseline_biblical_substrate import map_context_to_domain
+        from .baseline_biblical_substrate import map_context_to_domain
         return map_context_to_domain(context)
     
     def _convert_to_legacy_thought_type(self, thought_type: Any, text: str) -> 'LegacyThoughtType':

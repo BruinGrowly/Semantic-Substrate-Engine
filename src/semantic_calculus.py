@@ -15,15 +15,33 @@ from dataclasses import dataclass, field
 from enum import Enum
 import sympy as sp
 
-# Import core coordinates from enhanced components
-from ..enhanced_core_components import BiblicalCoordinates
+# Import core coordinates - use direct import instead of relative
+try:
+    from .baseline_biblical_substrate import BiblicalCoordinates
+except ImportError:
+    # Fallback if baseline not available
+    class BiblicalCoordinates:
+        def __init__(self, love=0.5, power=0.5, wisdom=0.5, justice=0.5):
+            self.love = love
+            self.power = power
+            self.wisdom = wisdom
+            self.justice = justice
+        
+        def calculate_divine_resonance(self):
+            return (self.love + self.power + self.wisdom + self.justice) / 4.0
+        
+        def distance_from_jehovah(self):
+            jehovah = BiblicalCoordinates(1.0, 1.0, 1.0, 1.0)
+            return sum(abs(a - b) for a, b in zip((self.love, self.power, self.wisdom, self.justice), 
+                                                (jehovah.love, jehovah.power, jehovah.wisdom, jehovah.justice)))
+
 from scipy.integrate import odeint
 from scipy.optimize import minimize
 import warnings
 
 # Import core semantic components
 try:
-    from src.baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
+    from .baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
 except ImportError:
     # Fallback for testing
     class BiblicalCoordinates:
@@ -48,7 +66,7 @@ except ImportError:
 
 # Import ICE-Centric capabilities
 try:
-    from ice_semantic_substrate_engine import (
+    from .ice_semantic_substrate_engine import (
         ICESemanticSubstrateEngine,
         SemanticCoordinates,
         ThoughtType,
@@ -60,7 +78,7 @@ except ImportError:
     ICE_CENTRIC_AVAILABLE = False
 
 try:
-    from unified_ice_framework import UnifiedICEFramework
+    from .unified_ice_framework import UnifiedICEFramework
     UNIFIED_ICE_AVAILABLE = True
 except ImportError:
     UNIFIED_ICE_AVAILABLE = False

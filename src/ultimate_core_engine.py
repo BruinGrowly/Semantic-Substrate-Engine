@@ -32,7 +32,7 @@ from dataclasses import dataclass, field
 # Import core engine
 try:
     sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-    from baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
+    from .baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
     from enhanced_core_components import (
         SemanticUnit, SacredNumber, BridgeFunction, UniversalAnchor,
         UniversalAnchorPoint, SevenUniversalPrinciples, UniversalPrinciple, ContextualResonance
@@ -46,7 +46,7 @@ except ImportError:
 
 # NEW: ICE-Centric Semantic Substrate Engine (7-stage pipeline)
 try:
-    from ice_semantic_substrate_engine import (
+    from .ice_semantic_substrate_engine import (
         ICESemanticSubstrateEngine,
         SemanticCoordinates,
         ThoughtType as ICEThoughtType,
@@ -61,7 +61,7 @@ except ImportError:
 
 # NEW: Unified ICE Framework (Phase 3.3)
 try:
-    from unified_ice_framework import (
+    from .unified_ice_framework import (
         UnifiedICEFramework,
         ProcessingMode,
         unified_ice_framework
@@ -90,12 +90,17 @@ except ImportError:
 
 # Import advanced mathematics
 try:
-    from mathematics.semantic_calculus import SemanticCalculus
-    from mathematics.semantic_mathematics_engine import SemanticMathematicsEngine
+    from .semantic_calculus import SemanticCalculus
+    from .semantic_mathematics_engine import SemanticMathematicsEngine
     MATH_AVAILABLE = True
 except ImportError:
-    print("Warning: Advanced mathematics not available")
-    MATH_AVAILABLE = False
+    try:
+        from mathematics.semantic_calculus import SemanticCalculus  # type: ignore
+        from mathematics.semantic_mathematics_engine import SemanticMathematicsEngine  # type: ignore
+        MATH_AVAILABLE = True
+    except ImportError:
+        print("Warning: Advanced mathematics not available")
+        MATH_AVAILABLE = False
 
 class UltimateCoreEngine:
     """
@@ -1009,7 +1014,7 @@ class UltimateCoreEngine:
             
         elif ICE_CENTRIC_AVAILABLE:
             # Fallback to ICE-Centric engine directly
-            from baseline_biblical_substrate import map_context_to_domain, infer_thought_type
+            from .baseline_biblical_substrate import map_context_to_domain, infer_thought_type
             context_domain = map_context_to_domain(context)
             thought_type = infer_thought_type(text)
             

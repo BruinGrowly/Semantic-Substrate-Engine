@@ -19,7 +19,7 @@ import re
 
 # ICE-Centric engine import (optional - graceful degradation if not available)
 try:
-    from ice_semantic_substrate_engine import (
+    from .ice_semantic_substrate_engine import (
         ICESemanticSubstrateEngine,
         SemanticCoordinates,
         ThoughtType,
