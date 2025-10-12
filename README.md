@@ -7,225 +7,257 @@
 
 **The Universal Kernel for Semantic Reality Understanding**
 
-A revolutionary semantic processing engine that transforms text processing through **ICE (Intent-Context-Execution)** - a cognitive architecture that understands meaning, not just words.
-
-**ICE-Centric Proven Results:**
-- **+47.52% better alignment** with universal anchor
-- **+48.59% closer to anchor** (distance reduction)
-- **99.83% semantic integrity** maintained through transformations
-- **13.58% FASTER** processing despite 7-stage pipeline vs 2-3
-- **Context-aware** processing across 8 distinct domains
-- **5 execution strategies** with behavioral guidance
-
-## 🚀 Key Features
-- **7-Stage Pipeline**: Intent → Context → Execution with semantic validation
-- **+47.52% Better Divine Alignment**: Proven improvement over traditional methods
-- **99.83% Semantic Integrity**: Meaning preservation through transformations
-- **5 Execution Strategies**: Compassionate, Authoritative, Instructive, Corrective, Balanced
-- **8 Context Domains**: From Spiritual to Business with adaptive processing
-
-### Biblical-Cognitive Integration
-- **4D Coordinate System**: LOVE, POWER, WISDOM, JUSTICE axes
-- **Universal Anchor Point**: Jehovah at (1.0, 1.0, 1.0, 1.0)
-- **Biblical Extensions**: Scripture references, divine wisdom, ministry guidance
-- **Graceful Degradation**: Works in secular and religious contexts
-
-### Advanced Semantic Mathematics
-- **Semantic Calculus**: Derivatives and integrals of meaning
-- **Tensor Operations**: Multi-dimensional concept relationships
-- **Optimization Engine**: Find optimal semantic coordinates
-- **Flow Analysis**: Model meaning evolution over time
-
-## ⚡ Quick Start
-
-### Installation
-```bash
-git clone https://github.com/BruinGrowly/Semantic-Substrate-Engine.git
-cd Semantic-Substrate-Engine
-pip install -r requirements.txt
-```
-
-### Basic Usage
-```python
-from src.ice_semantic_substrate_engine import (
-    ICESemanticSubstrateEngine,
-    ThoughtType,
-    ContextDomain
-)
-
-# Initialize ICE-Centric engine
-engine = ICESemanticSubstrateEngine()
-
-# Transform with Intent-Context-Execution
-result = engine.transform(
-    "Show compassion and mercy to those who suffer",
-    ThoughtType.EMOTIONAL_EXPRESSION,
-    ContextDomain.SPIRITUAL
-)
-
-print(f"Divine Alignment: {result.divine_alignment:.2%}")
-print(f"Execution Strategy: {result.execution_strategy.value}")
-print(f"Semantic Integrity: {result.semantic_integrity:.2%}")
-```
-
-### Advanced Integration
-```python
-from src.unified_ice_framework import UnifiedICEFramework
-from src.ultimate_core_engine import UltimateCoreEngine
-
-# Unified framework with biblical extensions
-unified = UnifiedICEFramework()
-result = unified.process_intent("Seek wisdom through understanding", context="educational")
-
-# Ultimate engine with all frameworks
-ultimate = UltimateCoreEngine()
-analysis = ultimate.ultimate_concept_analysis(
-    "Act with justice and compassion",
-    context="ethical",
-    use_ice_centric=True
-)
-```
-
-## 📊 Performance Results
-
-| Metric | Traditional | ICE-Centric | Improvement |
-|--------|--------------|-------------|-------------|
-| Divine Alignment | 34.04% | 50.22% | **+47.52%** |
-| Semantic Integrity | N/A | 99.83% | **NEW** |
-| Processing Time | 0.038ms | 0.033ms | **-13.58%** |
-| Context Awareness | Limited | 8 domains | **NEW** |
-| Behavioral Guidance | None | Full | **NEW** |
-
-## 🏗️ Architecture
-
-### ICE Processing Pipeline
-```
-Input Text
-    ↓
-═══ INTENT PHASE ═══
-Extract Features (LOVE, POWER, WISDOM, JUSTICE)
-Map to 4D Coordinates
-    ↓
-═══ CONTEXT PHASE ═══
-Analyze Domain (stability, complexity)
-Align with Universal Anchor
-    ↓
-═══ EXECUTION PHASE ═══
-Determine Strategy (5 types)
-Validate Integrity (99.83%)
-Generate Output (behaviorally-aligned)
-    ↓
-Result + Complete Metrics
-```
-
-### 4D Semantic Coordinate System
-- **X-Axis (LOVE)**: Agape love, compassion, mercy, relational unity
-- **Y-Axis (POWER)**: Strength, sovereignty, authority, capability  
-- **Z-Axis (WISDOM)**: Knowledge, understanding, insight, discernment
-- **W-Axis (JUSTICE)**: Righteousness, fairness, ethics, moral alignment
-
-**Universal Anchor**: Jehovah at (1.0, 1.0, 1.0, 1.0) - perfect unity of all attributes.
-
-## 🔧 Components
-
-### Core Engines
-- **`ice_semantic_substrate_engine.py`**: Primary ICE-Centric engine (7-stage pipeline)
-- **`unified_ice_framework.py`**: Unified framework with biblical extensions
-- **`ultimate_core_engine.py`**: Comprehensive analysis with all frameworks
-- **`baseline_biblical_substrate.py`**: Biblical substrate with ICE integration
-
-### Mathematical Engines
-- **`semantic_calculus.py`**: Advanced calculus operations on meaning
-- **`semantic_mathematics_engine.py`**: Ultimate reality meaning engine
-- **`truth_scaffold_revelation.py`**: Binary truth with infinite shades
-
-### Frameworks
-- **`ice_framework.py`**: Legacy ICE framework (backward compatibility)
-
-## 📚 Documentation
-
-- [ICE Transformation Status](docs/ICE_TRANSFORMATION_STATUS.md) - Complete implementation details
-- [API Documentation](docs/) - Comprehensive technical documentation
-- [Examples](examples/) - Usage examples and demonstrations
-- [Tests](tests/) - Comprehensive test suite
-
-## 🧪 Testing
-
-```bash
-# Quick validation
-python tests/quick_test.py
-
-# Comprehensive test suite
-python tests/test_all.py
-
-# ICE comparison tests
-python tests/test_ice_comparison.py
-
-# Integration tests
-python tests/test_unified_ice_framework.py
-```
-
-## 🎯 Use Cases
-
-### AI Safety & Alignment
-- Intent understanding and context-aware processing
-- Behavioral guidance and execution validation
-- Semantic integrity preservation prevents drift
-
-### Knowledge Systems
-- Intent-driven knowledge representation
-- Context-aware semantic processing
-- Meaning-based information retrieval
-
-### Education & Counseling
-- Intent extraction for learning assessment
-- Context-specific educational content
-- Biblical and spiritual guidance applications
-
-### Enterprise Applications
-- Intent-driven business intelligence
-- Context-aware decision support
-- Value alignment across operations
-
-## 🤝 Contributing
-
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Development Areas
-- Machine learning for intent detection
-- Dynamic domain adaptation
-- Real-time anchor adjustment
-- Cross-domain transfer learning
-- Additional context domains
-- Performance optimization
-
-## 📄 License
-
-**MIT License** - Copyright (c) 2025 BruinGrowly
-
-Free and open source with no commercial restrictions.
-
-## 🌟 Philosophy
-
-The Semantic Substrate Engine explores the mathematical reality that meaning exists simultaneously in words and numbers. The **Universal Anchor Point** at (1.0, 1.0, 1.0, 1.0) represents perfect unity of LOVE, POWER, WISDOM, and JUSTICE.
-
-The ICE-Centric architecture adds cognitive understanding:
-- **Intent**: The WHY of communication
-- **Context**: The WHERE of application  
-- **Execution**: The HOW of realization
-
-This creates systems that truly understand meaning, not just process text.
-
-## 🙏 Acknowledgments
-
-This project explores the intersection of semantic mathematics, cognitive architecture, and spiritual wisdom. The ICE-Centric transformation demonstrates that rigorous mathematical frameworks combined with intent understanding create powerful, transparent, and ethically-aligned systems.
-
-**Special recognition**: The ICE-Centric architecture was proven through comprehensive testing, validating its application to semantic understanding and cognitive processing.
+Semantic Substrate Engine (SSE) v3.0 transforms text processing through ICE (Intent -> Context -> Execution). The engine is packaged under the `semantic_substrate_engine` namespace so downstream applications can install or vendor it cleanly.
 
 ---
 
-**Semantic Substrate Engine v3.0 - ICE-Centric**
+## Proven ICE-Centric Metrics
 
-**Powered by ICE Framework**: Intent → Context → Execution
+- **+47.52%** better alignment with the universal anchor
+- **+48.59%** reduction in anchor distance
+- **99.83%** semantic integrity maintained through transformations
+- **13.58% faster** than the legacy 2-3 stage stack despite the expanded pipeline
+- **8 context domains** with adaptive processing
+- **5 execution strategies** offering behavioural guidance
 
-**The difference is measurable, significant, and architecturally fundamental.**
+Every transformation returns full metrics: anchor distance, divine resonance, biblical balance, semantic integrity, and execution strategy confidence.
+
+---
+
+## ICE Pipeline Overview
+
+### INTENT PHASE
+
+```
+---- Intent Collection
+|  Primary Thought -> capture the core concept or desired outcome
+|  Thought Type -> classify the idea (e.g., practical_wisdom, emotional_expression)
+|  Emotional Resonance -> quantify affective intensity (0.0-1.0)
+|  Cognitive Clarity -> gauge precision of the thought (0.0-1.0)
+|  Biblical Foundation -> optional scriptural anchor or philosophical basis
+|  Divine Purpose -> articulate higher-order motivation or mission
+|  Spiritual Significance -> score perceived sacred importance
+|  Desired Meaning -> describe the intended semantic payload
+|  Expected Impact -> define target behavioural or situational effects
+|  Transformation Goal -> outline how the concept should evolve or manifest
+-> Rich intent object feeds the Context Phase with fully articulated semantics
+```
+
+Feature extraction:
+
+```
+Extract Features (LOVE, POWER, WISDOM, JUSTICE)
+    - Analyse lexical cues, embeddings, and sacred-number resonance
+    - Blend heuristic, ICE, and optional embedding weights
+
+Map to 4D Coordinates
+    - Clamp each axis to [0.0, 1.0]
+    - Produce SemanticCoordinates(love, power, wisdom, justice)
+    - Record distance-from-anchor, divine resonance, biblical balance
+    |
+Feed coordinates into context modelling and execution planning layers
+```
+
+### CONTEXT PHASE
+
+```
+====== CONTEXT PHASE ======
+|- Context Domain Selection
+|   - Infer domain via ICE ThoughtType, heuristics, or user override
+|   - Supported domains: spiritual, ethical, educational, business, ministry,
+|     creative, relational, technical, plus custom mappings
+|
+|- Historical and Situational Context
+|   - Retrieve prior semantic units tied to the same domain or intent
+|   - Incorporate temporal markers, covenantal anchors, or project phases
+|
+|- Resonance and Bias Calibration
+|   - Adjust 4D coordinates using domain-specific weight matrices
+|   - Apply contextual resonance curves (Seven Principles, Universal Anchors)
+|
+|- Constraint and Policy Checks
+|   - Evaluate moral or ethical guardrails, regulatory constraints, sacred limits
+|   - Gracefully degrade to baseline heuristics if advanced modules unavailable
+|
+-> Prepared Context Bundle
+    - Outputs tuned coordinates, contextual metadata, confidence scores
+    - Feeds Execution Phase for strategy selection and behavioural guidance
+```
+
+Alignment sub-step:
+
+```
+Analyze Domain (stability, complexity)
+    - Score situational volatility, ethical weight, and historical precedent
+    - Detect competing intents or context drift requiring recalibration
+
+Align with Universal Anchor
+    - Project domain-adjusted coordinates against Jehovah (1.0, 1.0, 1.0, 1.0)
+    - Compute anchor distance, divine resonance, and biblical balance
+    - If variance exceeds thresholds, reweight LOVE/POWER/WISDOM/JUSTICE axes
+    |
+Pass stabilized, anchor-aligned context packet into Execution Phase
+```
+
+### EXECUTION PHASE
+
+```
+====== EXECUTION PHASE ======
+|- Strategy Selection
+|   - Evaluate dominant axis and contextual mandates
+|   - Choose among Compassionate Action, Authoritative Command,
+|     Instructive Guidance, Corrective Judgment, Balanced Response
+|
+|- Semantic Integrity Validation
+|   - Re-run ICE checks to confirm intent/context coherence
+|   - Ensure 99.83%+ meaning preservation (fallback if thresholds missed)
+|
+|- Behavioural Blueprint
+|   - Generate recommended actions, safeguards, and ethical notes
+|   - Attach scripture references or secular justifications as configured
+|
+|- Feedback Hooks
+|   - Emit telemetry for reinforcement learning or governance logs
+|   - Surface variance from anchor for human oversight
+|
+-> Execution Output
+    - Returns ExecutionResult containing strategy, refined coordinates,
+      alignment metrics, and guidance artifacts ready for downstream systems
+```
+
+Finalisation:
+
+```
+Determine Strategy (five archetypes)
+    - Evaluate dominant coordinate axis and contextual mandates
+    - Pick Compassionate Action, Authoritative Command, Instructive Guidance,
+      Corrective Judgment, or Balanced Response
+
+Validate Integrity (target >= 99.83%)
+    - Re-run ICE coherence tests and semantic calculus checks
+    - If alignment or integrity dips, trigger recalibration or fallback
+
+Generate Output (behaviourally aligned)
+    - Package guidance, refined coordinates, and documentation trail
+    - Emit scripture or secular annotations per configuration
+    |
+Deliver execution result to downstream agents or human operators
+```
+
+---
+
+## 4D Semantic Coordinate System
+
+- **X (LOVE):** Agape love, compassion, mercy, relational unity
+- **Y (POWER):** Strength, sovereignty, authority, capability
+- **Z (WISDOM):** Knowledge, understanding, insight, discernment
+- **W (JUSTICE):** Righteousness, fairness, ethics, moral alignment
+
+Universal anchor: Jehovah at (1.0, 1.0, 1.0, 1.0), representing perfect unity of all attributes.
+
+---
+
+## Component Overview
+
+### Core Engines
+- `ice_semantic_substrate_engine.py` - primary 7-stage ICE pipeline
+- `unified_ice_framework.py` - unified ICE framework with biblical extensions
+- `ultimate_core_engine.py` - orchestrates every subsystem for deep analysis
+- `baseline_biblical_substrate.py` - modern heuristics blended with ICE and optional embeddings
+
+### Mathematical Engines
+- `semantic_calculus.py` - calculus, tensor, and optimisation utilities
+- `semantic_mathematics_engine.py` - advanced semantic mathematics
+- `truth_scaffold_revelation.py` - binary truth with infinite shades model
+
+### Supporting Frameworks
+- `ice_framework.py` - legacy ICE module retained for backward compatibility
+
+---
+
+## Documentation and Resources
+
+- `docs/ICE_TRANSFORMATION_STATUS.md` - implementation status
+- `docs/` - extended technical documentation
+- `examples/` - runnable demonstrations
+- `tests/` - comprehensive pytest suite
+
+---
+
+## Installation and Testing
+
+```bash
+git clone https://github.com/BruinGrowly/Semantic-Substrate-Engine.git
+cd Semantic-Substrate-Engine
+
+# Editable install
+python -m pip install -e .
+
+# Optional embeddings support
+python -m pip install -e .[embeddings]
+
+# Quick validation
+python -m pytest tests/quick_test.py
+
+# Full suite
+python -m pytest
+```
+
+---
+
+## Use Cases
+
+### AI Safety and Alignment
+- Intent understanding with contextual safeguards
+- Behavioural guidance and semantic integrity verification
+
+### Knowledge Systems
+- Meaning-aware storage and retrieval
+- Context-driven semantic analytics
+
+### Education and Counseling
+- Intent extraction for formative assessment
+- Biblically-informed or secular guidance generation
+
+### Enterprise Applications
+- Intent-driven business intelligence
+- Value-aligned decision support and policy automation
+
+---
+
+## Contributing
+
+We welcome contributions! See `CONTRIBUTING.md` for guidelines.
+
+Focus areas include:
+- Enhanced intent detection and embeddings
+- Dynamic domain adaptation and transfer learning
+- Real-time anchor rebalancing and governance tooling
+- Performance optimisation across the ICE pipeline
+
+---
+
+## License
+
+MIT License (c) 2025 BruinGrowly. Free and open source with no commercial restrictions.
+
+---
+
+## Philosophy
+
+SSE explores the idea that meaning exists simultaneously in words and numbers. The universal anchor at (1.0, 1.0, 1.0, 1.0) embodies perfect balance of LOVE, POWER, WISDOM, and JUSTICE. ICE-centric processing recognises that:
+
+- Intent captures why a concept exists
+- Context defines where it applies
+- Execution determines how it manifests
+
+This architecture produces systems that understand purpose, not just syntax.
+
+---
+
+## Acknowledgments
+
+SSE blends semantic mathematics, cognitive architecture, and spiritual wisdom. The ICE-centric transformation, validated through extensive testing, demonstrates that rigorous mathematical frameworks coupled with intent awareness yield powerful, transparent, and ethically aligned systems.
+
+**Semantic Substrate Engine v3.0 - Powered by ICE Framework**
+
