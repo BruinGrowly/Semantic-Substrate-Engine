@@ -77,6 +77,39 @@ except ImportError:
         print("Warning: Baseline engine not available")
         BASELINE_AVAILABLE = False
 
+# Add direct imports for script execution (solves relative import issues)
+if not ICE_ENGINE_AVAILABLE:
+    try:
+        from ice_semantic_substrate_engine import (
+            ICESemanticSubstrateEngine, SemanticCoordinates, ThoughtType,
+            ContextDomain, ExecutionStrategy, ICETransformationResult
+        )
+        ICE_ENGINE_AVAILABLE = True
+        print("[INFO] ICE engine imported directly")
+    except ImportError:
+        pass
+
+if not BASELINE_AVAILABLE:
+    try:
+        from baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
+        BASELINE_AVAILABLE = True
+        print("[INFO] Baseline engine imported directly")
+    except ImportError:
+        pass
+
+if not PHI_ENGINE_AVAILABLE:
+    try:
+        from phi_geometric_engine import (
+            PHI, PHI_INVERSE, GOLDEN_ANGLE_RAD, GOLDEN_ANGLE_DEG,
+            PhiCoordinate, FibonacciSequence, GoldenSpiral, GoldenAngleRotator,
+            PhiExponentialBinner, DodecahedralAnchors,
+            fibonacci, golden_spiral_distance, rotate_by_golden_angle, get_phi_bin
+        )
+        PHI_ENGINE_AVAILABLE = True
+        print("[INFO] Phi engine imported directly")
+    except ImportError:
+        pass
+
 
 @dataclass
 class EnhancedSemanticCoordinates:
