@@ -31,8 +31,20 @@ try:
     )
     ICE_CENTRIC_AVAILABLE = True
 except ImportError:
-    ICE_CENTRIC_AVAILABLE = False
-    print("[WARNING] ICE-Centric engine not available. Using legacy mode only.")
+    # Try direct import as fallback
+    try:
+        from ice_semantic_substrate_engine import (
+            ICESemanticSubstrateEngine,
+            SemanticCoordinates,
+            ThoughtType as ICEThoughtType,
+            ContextDomain as ICEContextDomain,
+            ExecutionStrategy as ICEExecutionStrategy,
+            ICETransformationResult
+        )
+        ICE_CENTRIC_AVAILABLE = True
+    except ImportError:
+        ICE_CENTRIC_AVAILABLE = False
+        print("[WARNING] ICE-Centric engine not available. Using legacy mode only.")
 
 # Import legacy biblical framework for extensions
 try:
@@ -46,8 +58,20 @@ try:
     )
     LEGACY_ICE_AVAILABLE = True
 except ImportError:
-    LEGACY_ICE_AVAILABLE = False
-    print("[WARNING] Legacy ICE framework not available.")
+    # Try direct import as fallback
+    try:
+        from ice_framework import (
+            ICEFramework,
+            Intent as LegacyIntent,
+            Context as LegacyContext,
+            Execution as LegacyExecution,
+            ThoughtType as LegacyThoughtType,
+            ContextDomain as LegacyContextDomain
+        )
+        LEGACY_ICE_AVAILABLE = True
+    except ImportError:
+        LEGACY_ICE_AVAILABLE = False
+        print("[WARNING] Legacy ICE framework not available.")
 
 # ============================================================================
 # UNIFIED DATA STRUCTURES
@@ -363,6 +387,9 @@ class UnifiedICEFramework:
             self.legacy_engine = None
             print("[WARNING] Legacy ICE Framework not available")
         
+        # Define availability flags
+        self.both_available = ICE_CENTRIC_AVAILABLE and LEGACY_ICE_AVAILABLE
+        
         # Performance tracking
         self.processing_history = []
         self.performance_stats = {
@@ -404,7 +431,7 @@ class UnifiedICEFramework:
                 result = self._process_ice_centric(text, thought_type, context, result)
             elif mode == ProcessingMode.LEGACY_BIBLICAL and self.legacy_engine:
                 result = self._process_legacy(text, thought_type, context, result)
-            elif mode == ProcessingMode.HYBRID and both_available:
+            elif mode == ProcessingMode.HYBRID and self.both_available:
                 result = self._process_hybrid(text, thought_type, context, result)
             else:
                 # Fallback to available engine

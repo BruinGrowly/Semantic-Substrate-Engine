@@ -29,18 +29,144 @@ import math
 from typing import Dict, List, Tuple, Optional, Any, Union
 from dataclasses import dataclass, field
 
+# Define fallback BiblicalCoordinates first
+@dataclass
+class BiblicalCoordinates:
+    """Fallback BiblicalCoordinates implementation"""
+    love: float
+    power: float
+    wisdom: float
+    justice: float
+    
+    def __post_init__(self):
+        self.love = max(0.0, min(1.0, self.love))
+        self.power = max(0.0, min(1.0, self.power))
+        self.wisdom = max(0.0, min(1.0, self.wisdom))
+        self.justice = max(0.0, min(1.0, self.justice))
+    
+    def distance_from_jehovah(self):
+        return math.sqrt((1-self.love)**2 + (1-self.power)**2 + (1-self.wisdom)**2 + (1-self.justice)**2)
+    
+    def divine_resonance(self):
+        max_distance = math.sqrt(4)
+        return 1.0 - (self.distance_from_jehovah() / max_distance)
+
+class BiblicalSemanticSubstrate:
+    """Fallback BiblicalSemanticSubstrate implementation"""
+    def __init__(self):
+        pass
+    
+    def analyze_concept(self, text, context):
+        return BiblicalCoordinates(0.5, 0.5, 0.5, 0.5)
+
+# Create minimal enhanced components if not available
+@dataclass
+class SemanticUnit:
+    text: str
+    context: str
+    
+    def __post_init__(self):
+        self.semantic_signature = f"{self.text}_{self.context}"
+        self.meaning_vector = np.array([0.5, 0.5, 0.5, 0.5])
+        self.essence = {'love': 0.5, 'power': 0.5, 'wisdom': 0.5, 'justice': 0.5}
+        self.eternal_signature = hash(self.semantic_signature) % 1000 / 1000
+        self.meaning_preservation_factor = 1.0
+
+@dataclass
+class SacredNumber:
+    value: int
+    context: str
+    
+    def __post_init__(self):
+        self.is_sacred = self.value in [1, 3, 7, 12, 21, 40, 777]
+        self.sacred_resonance = 1.0 if self.is_sacred else 0.5
+        self.divine_attributes = {'love': 0.5, 'power': 0.5, 'wisdom': 0.5, 'justice': 0.5}
+        self.biblical_significance = self.sacred_resonance
+        self.mystical_properties = {}
+
+class BridgeFunction:
+    def semantic_to_mathematical(self, value, context):
+        return {'value': value, 'context': context, 'mathematical': value * 1.0}
+
+class UniversalAnchor:
+    def __init__(self):
+        self.anchor_points = {
+            1: UniversalAnchorPoint(1, "Anchor Point A", BiblicalCoordinates(1, 1, 1, 1))
+        }
+    
+    def navigate_to_anchor(self, coords, target_anchor):
+        return {'distance': 1.0, 'target': target_anchor}
+    
+    def get_anchor(self, anchor_id):
+        return self.anchor_points.get(anchor_id)
+
+@dataclass
+class UniversalAnchorPoint:
+    anchor_id: int
+    name: str
+    coordinates: 'BiblicalCoordinates'
+    stability: float = 1.0
+    scripture: str = "Genesis 1:1"
+    eternal_constancy: float = 1.0
+    significance: str = "Primary anchor point"
+
+@dataclass
+class UniversalPrinciple:
+    name: str
+    statement: str
+    
+    def apply_principle(self, system_state):
+        return system_state
+
+class SevenUniversalPrinciples:
+    def __init__(self):
+        self.principles = [
+            UniversalPrinciple("Anchor Point Principle", "Systems are stabilized by reference points"),
+            UniversalPrinciple("Interconnectedness", "Complex systems from linked components"),
+            UniversalPrinciple("Dynamic Balance", "Stability through force interplay"),
+            UniversalPrinciple("Sovereignty", "Individual essence in relationships"),
+            UniversalPrinciple("Information-Meaning", "Value through contextual integration"),
+            UniversalPrinciple("Iterative Growth", "Evolution through learning cycles"),
+            UniversalPrinciple("Contextual Resonance", "Optimal through contextual alignment")
+        ]
+        self.principle_system = {'golden_ratio': 1.618}
+    
+    def apply_principle(self, index, system_state):
+        if 0 <= index < len(self.principles):
+            return self.principles[index].apply_principle(system_state)
+        return system_state
+    
+    def analyze_system_state(self, system_state):
+        return {'overall_harmony': 0.8, 'individual_contributions': []}
+    
+    def calculate_system_harmony(self, system_state):
+        return 0.8
+
+class ContextualResonance:
+    def __init__(self):
+        self.contextual_weights = {"spiritual": 0.9, "ethical": 0.8, "general": 0.5}
+    
+    def calculate_resonance(self, coords, context, semantic_unit=None):
+        return self.contextual_weights.get(context, 0.5)
+
 # Import core engine
 try:
     sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
     from .baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
-    from enhanced_core_components import (
-        SemanticUnit, SacredNumber, BridgeFunction, UniversalAnchor,
-        UniversalAnchorPoint, SevenUniversalPrinciples, UniversalPrinciple, ContextualResonance
-    )
     CORE_AVAILABLE = True
 except ImportError:
     print("Warning: Core components not available")
     CORE_AVAILABLE = False
+
+# Try to import enhanced components (override fallbacks if available)
+try:
+    from enhanced_core_components import (
+        SemanticUnit, SacredNumber, BridgeFunction, UniversalAnchor,
+        UniversalAnchorPoint, SevenUniversalPrinciples, UniversalPrinciple, ContextualResonance
+    )
+except ImportError:
+    # Use fallback implementations defined above
+    pass
 
 # Import revolutionary frameworks
 

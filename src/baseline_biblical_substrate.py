@@ -28,8 +28,19 @@ try:
     )
     ICE_AVAILABLE = True
 except ImportError:
-    ICE_AVAILABLE = False
-    print("[WARNING] ICE-Centric engine not available. Using standard biblical substrate only.")
+    # Try direct import as fallback
+    try:
+        from ice_semantic_substrate_engine import (
+            ICESemanticSubstrateEngine,
+            SemanticCoordinates,
+            ThoughtType,
+            ContextDomain,
+            ICETransformationResult
+        )
+        ICE_AVAILABLE = True
+    except ImportError:
+        ICE_AVAILABLE = False
+        print("[WARNING] ICE-Centric engine not available. Using standard biblical substrate only.")
 
 class BiblicalPrinciple(Enum):
     """Core biblical principles for semantic analysis"""

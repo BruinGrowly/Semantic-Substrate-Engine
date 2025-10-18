@@ -56,14 +56,8 @@ except ImportError:
 
 # Import core engine
 try:
-    from enhanced_core_components import BiblicalCoordinates, BiblicalSemanticSubstrate
+    from .baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
 except ImportError:
-    try:
-        import sys
-        import os
-        sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-        from .baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
-    except ImportError:
         class BiblicalCoordinates:
             def __init__(self, love, power, wisdom, justice):
                 self.love = max(0.0, min(1.0, love))
