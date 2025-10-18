@@ -55,6 +55,10 @@ except ImportError:
         
         def distance_from_jehovah(self):
             return math.sqrt((1-self.love)**2 + (1-self.power)**2 + (1-self.wisdom)**2 + (1-self.justice)**2)
+        
+        def divine_resonance(self):
+            max_distance = math.sqrt(4)
+            return 1.0 - (self.distance_from_jehovah() / max_distance)
 
 class PhiIntegrationMethod(Enum):
     """Phi-enhanced integration methods"""
@@ -396,9 +400,36 @@ class PhiSemanticCalculus:
             contracted_data = np.tensordot(tensor.data, tensor.data, axes=([indices[0]], [indices[1]]))
             return PhiSemanticTensor(contracted_data, "standard")
         
+        # Validate indices are within tensor dimensions
+        tensor_shape = tensor.data.shape
+        if indices[0] >= len(tensor_shape) or indices[1] >= len(tensor_shape):
+            # Use trace operation for square matrices, or return identity
+            if tensor_shape[0] == tensor_shape[1]:
+                contracted_data = np.trace(tensor.data) * PHI_INVERSE
+                # Convert back to 2D tensor
+                contracted_data = np.array([[contracted_data]])
+                return PhiSemanticTensor(contracted_data, "golden")
+            else:
+                # Return trace of the smaller dimension
+                min_dim = min(tensor_shape)
+                contracted_data = np.trace(tensor.data[:min_dim, :min_dim]) * PHI_INVERSE
+                return PhiSemanticTensor(contracted_data, "golden")
+        
         # Apply golden ratio weighting during contraction
         phi_weight = self.PHI_INVERSE ** (len(indices) / 4)
         weighted_data = tensor.data * phi_weight
+        
+        # Check if dimensions are compatible for contraction
+        if weighted_data.shape[indices[0]] != weighted_data.shape[indices[1]]:
+            # Use trace for square matrices or identity for incompatible shapes
+            if weighted_data.shape[indices[0]] == weighted_data.shape[indices[1]]:
+                contracted_data = np.trace(weighted_data)
+                # Convert back to 2D tensor
+                contracted_data = np.array([[contracted_data]])
+                return PhiSemanticTensor(contracted_data, "golden")
+            else:
+                # Return weighted data as is with appropriate shape
+                return tensor
         
         contracted_data = np.tensordot(weighted_data, weighted_data, axes=([indices[0]], [indices[1]]))
         
