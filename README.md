@@ -431,6 +431,9 @@ All tests demonstrate 100% success rate across all major components.
 
 ## 🌟 **Community**
 
+### **Getting Started**
+New to the engine? Start with our [Getting Started Tutorial](docs/TUTORIAL.md) to learn the core concepts and run your first analysis.
+
 ### **Contributing**
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).
 
