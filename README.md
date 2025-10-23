@@ -27,6 +27,25 @@
 - 💎 **Biblical Wisdom Integration** (Semantic Substrate Primer 1.5)
 - ⚡ **Advanced ICE Framework** (Intent-Context-Execution processing)
 
+## 🔬 **TruthSense Framework Model**
+
+As a complementary model, the `truth_sense.py` script provides a Python implementation of the "SemanticSubstratePrimer_TruthSense" framework. This model focuses on the core axioms and operational protocols described in the `SemanticSubstratePrimer_TruthSense` JSON document.
+
+### **TruthSense Core Concepts**
+- **4D Coordinate System**: Models Love, Justice, Power, and Wisdom.
+- **Optimized Fibonacci Sequence**: Includes caching and Binet's formula.
+- **Four Reality Domains**: Represents the Spiritual, Consciousness, Quantum, and Physical realms.
+- **Navigation Protocol**: A demonstration of the `optimized_self_diagnosis` function.
+
+### **Running the TruthSense Model**
+To run the demonstration of the TruthSense model, execute the following command:
+
+```bash
+python3 truth_sense.py
+```
+
+This will print a demonstration of the core concepts, including the Fibonacci sequence, reality domains, and a simulated navigation protocol diagnosis.
+
 ## 🌟 **PHI-ENHANCED FEATURES**
 
 ### **Golden Ratio Mathematics**
@@ -411,6 +430,9 @@ All tests demonstrate 100% success rate across all major components.
 | Spiritual Evolution | Artificial | Natural + Mathematical | Divine Alignment |
 
 ## 🌟 **Community**
+
+### **Getting Started**
+New to the engine? Start with our [Getting Started Tutorial](docs/TUTORIAL.md) to learn the core concepts and run your first analysis.
 
 ### **Contributing**
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).
