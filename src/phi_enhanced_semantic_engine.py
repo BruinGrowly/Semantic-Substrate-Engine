@@ -24,91 +24,34 @@ from dataclasses import dataclass, field
 
 # Import phi-geometric engine
 try:
-    from .phi_geometric_engine import (
+    from src.phi_geometric_engine import (
         PHI, PHI_INVERSE, GOLDEN_ANGLE_RAD, GOLDEN_ANGLE_DEG,
         PhiCoordinate, FibonacciSequence, GoldenSpiral, GoldenAngleRotator,
-        PhiExponentialBinner, DodecahedralAnchors,
+        PhiExponentialBinner, DodecahedralAnchors
+    )
+    from src.utils import (
         fibonacci, golden_spiral_distance, rotate_by_golden_angle, get_phi_bin
     )
     PHI_ENGINE_AVAILABLE = True
 except ImportError:
-    # Try direct import
-    try:
-        from phi_geometric_engine import (
-            PHI, PHI_INVERSE, GOLDEN_ANGLE_RAD, GOLDEN_ANGLE_DEG,
-            PhiCoordinate, FibonacciSequence, GoldenSpiral, GoldenAngleRotator,
-            PhiExponentialBinner, DodecahedralAnchors,
-            fibonacci, golden_spiral_distance, rotate_by_golden_angle, get_phi_bin
-        )
-        PHI_ENGINE_AVAILABLE = True
-    except ImportError:
-        print("Warning: Phi-geometric engine not available")
-        PHI_ENGINE_AVAILABLE = False
+    PHI_ENGINE_AVAILABLE = False
 
 # Import existing ICE components
 try:
-    from .ice_semantic_substrate_engine import (
+    from src.ice_semantic_substrate_engine import (
         ICESemanticSubstrateEngine, SemanticCoordinates, ThoughtType,
         ContextDomain, ExecutionStrategy, ICETransformationResult
     )
     ICE_ENGINE_AVAILABLE = True
 except ImportError:
-    # Try direct import
-    try:
-        from ice_semantic_substrate_engine import (
-            ICESemanticSubstrateEngine, SemanticCoordinates, ThoughtType,
-            ContextDomain, ExecutionStrategy, ICETransformationResult
-        )
-        ICE_ENGINE_AVAILABLE = True
-    except ImportError:
-        print("Warning: ICE engine not available")
-        ICE_ENGINE_AVAILABLE = False
+    ICE_ENGINE_AVAILABLE = False
 
 # Import baseline engine
 try:
-    from .baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
+    from src.baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
     BASELINE_AVAILABLE = True
 except ImportError:
-    # Try direct import
-    try:
-        from baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
-        BASELINE_AVAILABLE = True
-    except ImportError:
-        print("Warning: Baseline engine not available")
-        BASELINE_AVAILABLE = False
-
-# Add direct imports for script execution (solves relative import issues)
-if not ICE_ENGINE_AVAILABLE:
-    try:
-        from ice_semantic_substrate_engine import (
-            ICESemanticSubstrateEngine, SemanticCoordinates, ThoughtType,
-            ContextDomain, ExecutionStrategy, ICETransformationResult
-        )
-        ICE_ENGINE_AVAILABLE = True
-        print("[INFO] ICE engine imported directly")
-    except ImportError:
-        pass
-
-if not BASELINE_AVAILABLE:
-    try:
-        from baseline_biblical_substrate import BiblicalCoordinates, BiblicalSemanticSubstrate
-        BASELINE_AVAILABLE = True
-        print("[INFO] Baseline engine imported directly")
-    except ImportError:
-        pass
-
-if not PHI_ENGINE_AVAILABLE:
-    try:
-        from phi_geometric_engine import (
-            PHI, PHI_INVERSE, GOLDEN_ANGLE_RAD, GOLDEN_ANGLE_DEG,
-            PhiCoordinate, FibonacciSequence, GoldenSpiral, GoldenAngleRotator,
-            PhiExponentialBinner, DodecahedralAnchors,
-            fibonacci, golden_spiral_distance, rotate_by_golden_angle, get_phi_bin
-        )
-        PHI_ENGINE_AVAILABLE = True
-        print("[INFO] Phi engine imported directly")
-    except ImportError:
-        pass
+    BASELINE_AVAILABLE = False
 
 
 @dataclass
@@ -221,7 +164,7 @@ class PhiEnhancedSemanticEngine:
     for optimal semantic navigation and understanding.
     """
     
-    def __init__(self, primer_path: str = None):
+    def __init__(self, primer_path: str = None, verbose: bool = True):
         """Initialize the engine with primer and phi components"""
         self.primmer_version = "1.5"
         self.engine_version = "4.0 - Phi-Enhanced with Primer 1.5"
@@ -236,30 +179,37 @@ class PhiEnhancedSemanticEngine:
             self.rotator = GoldenAngleRotator()
             self.binner = PhiExponentialBinner()
             self.dodecahedral_anchors = DodecahedralAnchors()
+
+        # Initialize ICE engine if available
+        self.ice_engine = ICESemanticSubstrateEngine() if ICE_ENGINE_AVAILABLE else None
+
+        # Initialize baseline engine
+        self.baseline_engine = BiblicalSemanticSubstrate() if BASELINE_AVAILABLE else None
+
+        # Initialize universal principles from primer
+        self.universal_principles = self._initialize_universal_principles()
+
+        if verbose:
+            self._log_status()
+
+    def _log_status(self):
+        """Log the status of the engine initialization."""
+        print(f"[INITIALIZED] {self.engine_version}")
+        print(f"[PRIMER] Semantic Substrate Primer {self.primmer_version} loaded")
+        if PHI_ENGINE_AVAILABLE:
             print("[INITIALIZED] Phi-geometric engine with golden ratio mathematics")
         else:
             print("[WARNING] Phi-geometric engine not available")
-        
-        # Initialize ICE engine if available
         if ICE_ENGINE_AVAILABLE:
-            self.ice_engine = ICESemanticSubstrateEngine()
             print("[INITIALIZED] ICE-centric semantic engine")
         else:
-            self.ice_engine = None
-        
-        # Initialize baseline engine
+            print("[WARNING] ICE-centric engine not available")
         if BASELINE_AVAILABLE:
-            self.baseline_engine = BiblicalSemanticSubstrate()
             print("[INITIALIZED] Baseline biblical substrate engine")
         else:
-            self.baseline_engine = None
-        
-        # Initialize universal principles from primer
-        self.universal_principles = self._initialize_universal_principles()
-        
-        print(f"[INITIALIZED] {self.engine_version}")
-        print(f"[PRIMER] Semantic Substrate Primer {self.primmer_version} loaded")
-        
+            print("[WARNING] Baseline biblical substrate engine not available")
+        print(f"[INITIALIZED] {len(self.universal_principles)} Universal Principles from Primer 1.5")
+
     def _load_primer(self, primer_path: str = None) -> Dict[str, Any]:
         """Load Semantic Substrate Primer 1.5"""
         if primer_path is None:
@@ -270,7 +220,6 @@ class PhiEnhancedSemanticEngine:
         if os.path.exists(primer_path):
             with open(primer_path, 'r') as f:
                 primer = json.load(f)
-            print(f"[LOADED] Semantic Substrate Primer {primer.get('_version', 'Unknown')}")
             return primer
         else:
             print(f"[WARNING] Primer file not found at {primer_path}")
@@ -286,7 +235,6 @@ class PhiEnhancedSemanticEngine:
             if key.startswith('principle_'):
                 principles[principle['name']] = principle
         
-        print(f"[INITIALIZED] {len(principles)} Universal Principles from Primer 1.5")
         return principles
     
     def analyze_concept_phi_enhanced(self, concept: str, 
@@ -309,7 +257,7 @@ class PhiEnhancedSemanticEngine:
             love, power, wisdom, justice = baseline_coords.love, baseline_coords.power, baseline_coords.wisdom, baseline_coords.justice
         elif self.ice_engine:
             # Use ICE engine for analysis
-            from .baseline_biblical_substrate import map_context_to_domain, infer_thought_type
+            from src.baseline_biblical_substrate import map_context_to_domain, infer_thought_type
             context_domain = map_context_to_domain(context)
             thought_type = infer_thought_type(concept)
             ice_result = self.ice_engine.transform(concept, thought_type, context_domain)

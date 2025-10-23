@@ -20,20 +20,21 @@ def test_file_import(file_path, module_name):
         # Clear any cached imports
         if module_name in sys.modules:
             del sys.modules[module_name]
-        
-        # Add to path and try import
+
+        # Add src to path to allow for imports
         sys.path.insert(0, 'src')
-        spec = importlib.util.spec_from_file_location(module_name, file_path)
-        if spec is None:
-            return False, f"Could not create spec for {module_name}"
-        
-        module = importlib.util.module_from_spec(spec)
-        sys.modules[module_name] = module
-        spec.loader.exec_module(module)
-        
+
+        # Dynamically import the module
+        importlib.import_module(module_name)
+
         return True, "Import successful"
     except Exception as e:
         return False, str(e)
+    finally:
+        # clean up path
+        if 'src' in sys.path:
+            sys.path.remove('src')
+
 
 def analyze_phi_upgrade_needs(file_path, module_name):
     """Analyze if a file needs Phi upgrades"""

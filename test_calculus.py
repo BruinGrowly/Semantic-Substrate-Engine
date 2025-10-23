@@ -6,6 +6,7 @@ Simple test for Phi-Enhanced Semantic Calculus
 import sys, os
 sys.path.insert(0, os.path.join(os.getcwd(), 'src'))
 from phi_enhanced_semantic_calculus import *
+from src.utils import fibonacci
 import math
 
 def test_calculus():
