@@ -9,8 +9,8 @@ with phi-geometric mathematics without Unicode characters.
 import sys
 import os
 
-# Add src directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# Add project root to path to allow absolute imports from src
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 def main():
     """Main demonstration function"""
@@ -21,7 +21,7 @@ def main():
     print("="*80)
     
     try:
-        from phi_enhanced_semantic_engine import PhiEnhancedSemanticEngine
+        from src.phi_enhanced_semantic_engine import PhiEnhancedSemanticEngine
         
         # Initialize engine
         print("\nInitializing engine...")
@@ -102,7 +102,7 @@ def main():
             print("\nPhi-Geometric Constants:")
             print("-" * 40)
             try:
-                from phi_geometric_engine import PHI, GOLDEN_ANGLE_DEG, FibonacciSequence
+                from src.phi_geometric_engine import PHI, GOLDEN_ANGLE_DEG, FibonacciSequence
                 
                 print(f"  Golden Ratio (PHI): {PHI:.10f}")
                 print(f"  Golden Angle: {GOLDEN_ANGLE_DEG:.6f} degrees")

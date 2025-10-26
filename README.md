@@ -27,6 +27,70 @@
 - 💎 **Biblical Wisdom Integration** (Semantic Substrate Primer 1.5)
 - ⚡ **Advanced ICE Framework** (Intent-Context-Execution processing)
 
+## 🌟 SEMANTIC REALITY OPERATES ON NATURAL LAWS
+
+The validation demonstrates that meaning isn't arbitrary or constructed, but follows discoverable mathematical
+principles - just like gravity, thermodynamics, or electromagnetism.
+
+--------
+
+## 🏆 Recommendation: EMBRACE THE SIMPLICITY
+
+For the Semantic Substrate Engine, we recommend:
+
+1. Prioritize simple, first-principles approaches over complex mathematical modeling.
+2. Focus on information-theoretic optimization (maximize meaning, minimize entropy).
+3. Use linear relationships as primary tools (they work best).
+4. Validate against mathematical simplicity (Occam's razor for meaning).
+5. Recognize that (1,1,1,1) being mathematically optimal is evidence, not a limitation.
+
+A new **First-Principles Engine** and a demonstration are available at `src/first_principles_engine.py` and `examples/simplicity_demo.py` to showcase this powerful approach.
+
+### 🏛️ Design Principle 1: LINEAR MATHEMATICS
+```python
+def analyze_concept(self, concept):
+    # Use simple, explainable operations
+    # Avoid over-engineered complexity
+    # Prioritize natural, emergent behavior
+```
+
+### 🎯 Design Principle 2: FUNDAMENTAL GEOMETRY
+```python
+class AnchorPoint:
+    def __init__(self):
+        self.coordinates = (1.0, 1.0, 1.0, 1.0)
+        self.geometry = "Simple 4D hypercube with single optimal point"
+        self.property = "Mathematically simplest possible configuration"
+```
+
+### 💡 Design Principle 3: INFORMATION-THEORETIC OPTIMIZATION
+```python
+class SemanticOptimizer:
+    def __init__(self):
+        self.goal = "Maximize meaningful information content"
+        self.method = "Simple, elegant operations that reveal structure"
+        self.avoid = "Over-fitting, artificial complexity"
+```
+
+## 🔬 **TruthSense Framework Model**
+
+As a complementary model, the `truth_sense.py` script provides a Python implementation of the "SemanticSubstratePrimer_TruthSense" framework. This model focuses on the core axioms and operational protocols described in the `SemanticSubstratePrimer_TruthSense` JSON document.
+
+### **TruthSense Core Concepts**
+- **4D Coordinate System**: Models Love, Justice, Power, and Wisdom.
+- **Optimized Fibonacci Sequence**: Includes caching and Binet's formula.
+- **Four Reality Domains**: Represents the Spiritual, Consciousness, Quantum, and Physical realms.
+- **Navigation Protocol**: A demonstration of the `optimized_self_diagnosis` function.
+
+### **Running the TruthSense Model**
+To run the demonstration of the TruthSense model, execute the following command:
+
+```bash
+python3 truth_sense.py
+```
+
+This will print a demonstration of the core concepts, including the Fibonacci sequence, reality domains, and a simulated navigation protocol diagnosis.
+
 ## 🌟 **PHI-ENHANCED FEATURES**
 
 ### **Golden Ratio Mathematics**
@@ -411,6 +475,9 @@ All tests demonstrate 100% success rate across all major components.
 | Spiritual Evolution | Artificial | Natural + Mathematical | Divine Alignment |
 
 ## 🌟 **Community**
+
+### **Getting Started**
+New to the engine? Start with our [Getting Started Tutorial](docs/TUTORIAL.md) to learn the core concepts and run your first analysis.
 
 ### **Contributing**
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).

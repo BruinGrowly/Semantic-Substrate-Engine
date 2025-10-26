@@ -154,7 +154,7 @@ def test_phi_unified_ice():
     print("\n[TEST] Phi-Enhanced Unified ICE Framework")
     try:
         from phi_enhanced_unified_ice_framework import (
-            PhiUnifiedICEFramework, PhiProcessingMode, PhiBiblicalExtension
+            PhiUnifiedICEFramework, PhiProcessingMode, PhiBiblicalExtension, PhiICETransformationResult
         )
         
         framework = PhiUnifiedICEFramework(PhiProcessingMode.PHI_OPTIMIZED)
@@ -166,9 +166,11 @@ def test_phi_unified_ice():
             "spiritual"
         )
         
+        final_coords = result.final_coordinates
+
         print(f"  Processing Mode: {result.processing_mode.value}")
-        print(f"  Final Coordinates: ({result.final_coordinates.love:.3f}, {result.final_coordinates.power:.3f}, {result.final_coordinates.wisdom:.3f}, {result.final_coordinates.justice:.3f})")
-        print(f"  Divine Alignment: {result.final_coordinates.divine_alignment():.3f}")
+        print(f"  Final Coordinates: ({final_coords.love:.3f}, {final_coords.power:.3f}, {final_coords.wisdom:.3f}, {final_coords.justice:.3f})")
+        print(f"  Divine Alignment: {final_coords.divine_alignment():.3f}")
         print(f"  Phi Enhancement: {result.phi_enhancement:.3f}")
         print(f"  Sacred Geometry Alignment: {result.sacred_geometry_alignment:.3f}")
         print(f"  Processing Time: {result.processing_time_ms:.2f}ms")

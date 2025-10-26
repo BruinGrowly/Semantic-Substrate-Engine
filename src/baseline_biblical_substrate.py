@@ -1,46 +1,23 @@
 """
-PHI-ENHANCED BASELINE BIBLICAL SUBSTRATE
+SEMANTIC SUBSTRATE ENGINE V3 - ICE-INTEGRATED BIBLICAL IMPLEMENTATION
 
-Enhanced with golden ratio mathematics, dodecahedral anchors, 
-and Fibonacci-based semantic growth patterns.
+Bible-based 4D coordinate system with Love, Power, Wisdom, Justice axes.
+Maintains biblical standards while operating flexibly in secular environments.
 
-Integrates:
-- Golden ratio (φ = 1.618...) for natural semantic relationships
-- Fibonacci sequences for organic concept development
-- Dodecahedral sacred geometry for stable reference points
-- Phi-geometric distance calculations instead of Euclidean
-- Enhanced biblical coordinate system with Phi resonance
+VERSION 3.0 - ICE-Centric Integration:
+- Integrates Intent-Context-Execution (ICE) framework for enhanced semantic processing
+- Provides backward-compatible analyze_concept() method
+- Adds optional ICE-Centric analyze_concept_ice() method
+- Includes adapter functions for coordinate system conversion
 """
 
 import math
-import re
-import random
-from typing import Dict, List, Tuple, Optional, Any, Union
+from typing import Dict, List, Tuple, Optional, Any, Set, Union
 from dataclasses import dataclass, field
 from enum import Enum
+import re
 
-# Phi-geometric imports
-try:
-    from .phi_geometric_engine import (
-        PHI, PHI_INVERSE, GOLDEN_ANGLE_RAD, GOLDEN_ANGLE_DEG,
-        PhiCoordinate, FibonacciSequence, GoldenSpiral, GoldenAngleRotator,
-        DodecahedralAnchors, golden_spiral_distance, fibonacci, get_phi_bin
-    )
-    PHI_ENGINE_AVAILABLE = True
-except ImportError:
-    # Try direct import
-    try:
-        from phi_geometric_engine import (
-            PHI, PHI_INVERSE, GOLDEN_ANGLE_RAD, GOLDEN_ANGLE_DEG,
-            PhiCoordinate, FibonacciSequence, GoldenSpiral, GoldenAngleRotator,
-            DodecahedralAnchors, golden_spiral_distance, fibonacci, get_phi_bin
-        )
-        PHI_ENGINE_AVAILABLE = True
-    except ImportError:
-        print("Warning: Phi-geometric engine not available, using baseline mode")
-        PHI_ENGINE_AVAILABLE = False
-
-# ICE Engine imports
+# ICE-Centric engine import (optional - graceful degradation if not available)
 try:
     from .ice_semantic_substrate_engine import (
         ICESemanticSubstrateEngine,
@@ -63,7 +40,7 @@ except ImportError:
         ICE_AVAILABLE = True
     except ImportError:
         ICE_AVAILABLE = False
-        print("[INFO] ICE-Centric engine not available. Using standard biblical substrate only.")
+        print("[WARNING] ICE-Centric engine not available. Using standard biblical substrate only.")
 
 class BiblicalPrinciple(Enum):
     """Core biblical principles for semantic analysis"""
@@ -87,169 +64,101 @@ class BiblicalPrinciple(Enum):
     HUMILITY = "humility"
 
 @dataclass
-class PhiEnhancedBiblicalCoordinates:
+class BiblicalCoordinates:
     """
-    Phi-enhanced 4D semantic coordinates with golden ratio mathematics
+    Enhanced 4D semantic coordinates based on biblical attributes
     
-    Traditional biblical axes enhanced with:
-    - Phi resonance calculations
-    - Fibonacci growth patterns
-    - Golden spiral distance metrics
-    - Dodecahedral anchor proximity
-    - Sacred geometry alignment
+    X-Axis (Love): Divine love, compassion, mercy, grace - John 3:16
+    Y-Axis (Power): Divine power, sovereignty, authority, might - Psalm 62:11
+    Z-Axis (Wisdom): Divine wisdom, understanding, knowledge - Proverbs 9:10
+    W-Axis (Justice): Divine justice, righteousness, holiness - Isaiah 61:8
+    
+    Each coordinate ranges from 0.0 (no biblical alignment) to 1.0 (perfect biblical alignment)
     """
-    love: float = 0.0      # X-Axis: Divine love, compassion, mercy - John 3:16
-    power: float = 0.0     # Y-Axis: Divine sovereignty, authority, strength - Psalm 62:11
-    wisdom: float = 0.0    # Z-Axis: Divine wisdom, understanding, insight - Proverbs 9:10
-    justice: float = 0.0   # W-Axis: Divine justice, righteousness, fairness - Isaiah 61:8
-    
-    # Phi-geometric enhancements
-    phi_resonance: float = field(default=0.0, init=False)
-    fibonacci_stage: int = field(default=0, init=False)
-    golden_spiral_radius: float = field(default=0.0, init=False)
-    anchor_proximities: Dict[int, float] = field(default_factory=dict, init=False)
-    sacred_geometry_score: float = field(default=0.0, init=False)
-    phi_growth_factor: float = field(default=1.0, init=False)
+    love: float = field(default=0.0)
+    power: float = field(default=0.0)
+    wisdom: float = field(default=0.0)
+    justice: float = field(default=0.0)
     
     def __post_init__(self):
-        """Calculate phi-geometric properties after initialization"""
-        # Clamp coordinates to valid range
+        """Ensure coordinates are within valid range"""
         self.love = max(0.0, min(1.0, self.love))
         self.power = max(0.0, min(1.0, self.power))
         self.wisdom = max(0.0, min(1.0, self.wisdom))
         self.justice = max(0.0, min(1.0, self.justice))
-        
-        # Calculate phi-geometric properties
-        if PHI_ENGINE_AVAILABLE:
-            self._calculate_phi_properties()
-        else:
-            self._calculate_baseline_properties()
     
-    def _calculate_phi_properties(self):
-        """Calculate golden ratio and sacred geometry properties"""
-        # Convert to phi-geometric coordinate
-        phi_coord = PhiCoordinate(self.love, self.power, self.wisdom, self.justice)
-        
-        # Calculate phi resonance (how aligned with golden ratio)
-        coords_array = [self.love, self.power, self.wisdom, self.justice]
-        ratios = []
-        for i in range(4):
-            for j in range(i+1, 4):
-                if coords_array[j] > 0.001:  # Avoid division by zero
-                    ratios.append(coords_array[i] / coords_array[j])
-        
-        if ratios:
-            phi_distances = [abs(ratio - PHI) for ratio in ratios]
-            avg_distance = sum(phi_distances) / len(phi_distances)
-            self.phi_resonance = max(0, 1.0 - avg_distance / PHI)
-        else:
-            self.phi_resonance = 0.5
-        
-        # Fibonacci stage based on magnitude
-        magnitude = math.sqrt(self.love**2 + self.power**2 + self.wisdom**2 + self.justice**2)
-        self.fibonacci_stage = get_phi_bin(magnitude * 10) if magnitude > 0 else 0
-        
-        # Golden spiral radius
-        self.golden_spiral_radius = magnitude
-        
-        # Anchor proximities to 12 dodecahedral points
-        dodecahedral = DodecahedralAnchors()
-        for anchor_id in range(1, 13):
-            anchor = dodecahedral.get_anchor(anchor_id)
-            if anchor:
-                distance = golden_spiral_distance(phi_coord, anchor)
-                self.anchor_proximities[anchor_id] = 1.0 / (1.0 + distance)
-        
-        # Sacred geometry score (harmony with dodecahedral pattern)
-        if self.anchor_proximities:
-            self.sacred_geometry_score = max(self.anchor_proximities.values())
-        else:
-            self.sacred_geometry_score = self.divine_resonance()  # Fallback
-        
-        # Phi growth factor (how well aligned with natural growth)
-        self.phi_growth_factor = self.phi_resonance * self.biblical_balance()
+    def to_tuple(self) -> Tuple[float, float, float, float]:
+        """Convert to tuple for easy comparison"""
+        return (self.love, self.power, self.wisdom, self.justice)
     
-    def _calculate_baseline_properties(self):
-        """Calculate baseline properties without phi engine"""
-        # Simple phi approximation
-        coords_sum = self.love + self.power + self.wisdom + self.justice
-        ideal_phi_sum = PHI  # Golden ratio
-        
-        self.phi_resonance = 1.0 - abs(coords_sum - ideal_phi_sum) / ideal_phi_sum
-        self.fibonacci_stage = int(coords_sum * 10) % 20  # Simple approximation
-        self.golden_spiral_radius = coords_sum / 4.0
-        self.sacred_geometry_score = self.divine_resonance()
-        self.phi_growth_factor = self.phi_resonance * 0.8
-    
-    def distance_from_jehovah(self, use_golden_spiral: bool = True) -> float:
+    def distance_from_jehovah(self) -> float:
         """
-        Calculate distance from the universal anchor (JEHOVAH) at (1,1,1,1)
-        
-        Args:
-            use_golden_spiral: Use golden spiral distance if True, Euclidean if False
+        Calculate Euclidean distance from perfect JEHOVAH coordinates (1.0, 1.0, 1.0, 1.0)
+        This represents how far from divine perfection the concept is
         """
-        if use_golden_spiral and PHI_ENGINE_AVAILABLE:
-            # Use golden spiral distance for more natural semantic relationships
-            phi_coord = PhiCoordinate(self.love, self.power, self.wisdom, self.justice)
-            jehovah_coord = PhiCoordinate(1.0, 1.0, 1.0, 1.0)
-            return golden_spiral_distance(phi_coord, jehovah_coord)
-        else:
-            # Fallback to Euclidean distance
-            return math.sqrt((1-self.love)**2 + (1-self.power)**2 + 
-                           (1-self.wisdom)**2 + (1-self.justice)**2)
+        return math.sqrt(
+            (1.0 - self.love) ** 2 +
+            (1.0 - self.power) ** 2 +
+            (1.0 - self.wisdom) ** 2 +
+            (1.0 - self.justice) ** 2
+        )
     
     def divine_resonance(self) -> float:
-        """Calculate divine resonance based on phi-enhanced properties"""
-        # Traditional resonance
-        max_distance = math.sqrt(4)
-        traditional_resonance = 1.0 - (self.distance_from_jehovah(False) / max_distance)
-        
-        # Phi-enhanced resonance
-        if PHI_ENGINE_AVAILABLE:
-            phi_weighted_resonance = (traditional_resonance * 0.6 + 
-                                    self.phi_resonance * 0.2 + 
-                                    self.sacred_geometry_score * 0.2)
-        else:
-            phi_weighted_resonance = (traditional_resonance * 0.7 + 
-                                    self.phi_resonance * 0.3)
-        
-        return max(0, min(1.0, phi_weighted_resonance))
+        """
+        Calculate divine resonance score
+        Higher resonance indicates closer alignment with JEHOVAH's nature
+        """
+        max_distance = math.sqrt(4)  # Maximum distance from (0,0,0,0) to (1,1,1,1)
+        return 1.0 - (self.distance_from_jehovah() / max_distance)
     
     def biblical_balance(self) -> float:
-        """Calculate biblical balance using phi-harmonized variance"""
+        """
+        Calculate how balanced the coordinates are across all four biblical attributes
+        Returns 1.0 for perfect balance, 0.0 for complete imbalance
+        """
         coords = [self.love, self.power, self.wisdom, self.justice]
-        mean_val = sum(coords) / 4.0
+        max_coord = max(coords)
+        min_coord = min(coords)
         
-        # Traditional variance
-        variance = sum((coord - mean_val)**2 for coord in coords) / 4.0
-        max_variance = 0.25
+        if max_coord == 0:
+            return 1.0
         
-        # Phi-enhanced balance considers phi resonance
-        if PHI_ENGINE_AVAILABLE:
-            variance_penalty = variance / max_variance
-            phi_bonus = self.phi_resonance * 0.1
-            balance = 1.0 - variance_penalty + phi_bonus
-        else:
-            balance = 1.0 - (variance / max_variance)
-        
-        return max(0, min(1.0, balance))
+        return min_coord / max_coord
     
     def overall_biblical_alignment(self) -> float:
-        """Calculate overall alignment using phi-weighted factors"""
-        divine = self.divine_resonance()
+        """
+        Calculate overall biblical alignment score
+        Considers resonance, balance, and absolute values
+        """
+        resonance_weight = 0.4
+        balance_weight = 0.3
+        value_weight = 0.3
+        
+        resonance = self.divine_resonance()
         balance = self.biblical_balance()
+        value = (self.love + self.power + self.wisdom + self.justice) / 4.0
         
-        if PHI_ENGINE_AVAILABLE:
-            # Include phi factors in overall alignment
-            overall = (divine * 0.4 + balance * 0.3 + 
-                      self.phi_resonance * 0.2 + self.sacred_geometry_score * 0.1)
-        else:
-            overall = (divine * 0.6 + balance * 0.4)
-        
-        return max(0, min(1.0, overall))
+        return (resonance * resonance_weight +
+                balance * balance_weight +
+                value * value_weight)
     
     def get_dominant_attribute(self) -> str:
-        """Get dominant attribute with phi consideration"""
+        """
+        Determine which biblical attribute is dominant in these coordinates
+        """
+        coords = {
+            'love': self.love,
+            'power': self.power,
+            'wisdom': self.wisdom,
+            'justice': self.justice
+        }
+        return max(coords, key=coords.get)
+    
+    def get_deficient_attributes(self) -> List[str]:
+        """
+        Identify which biblical attributes are deficient (< 0.5)
+        """
+        deficient = []
         coords = {
             'love': self.love,
             'power': self.power,
@@ -257,470 +166,1069 @@ class PhiEnhancedBiblicalCoordinates:
             'justice': self.justice
         }
         
-        max_coord = max(coords.values())
-        balance = self.biblical_balance()
+        for attr, value in coords.items():
+            if value < 0.5:
+                deficient.append(attr)
         
-        # High phi resonance suggests harmonious development
-        if PHI_ENGINE_AVAILABLE and self.phi_resonance > 0.8 and balance > 0.9:
-            return "Phi-Harmonized"
-        elif balance > 0.85:
-            return "Balanced"
-        else:
-            return max(coords, key=coords.get)
+        return deficient
     
-    def apply_phi_growth(self, target_stage: int) -> 'PhiEnhancedBiblicalCoordinates':
+    def get_attribute_strength(self, attribute: str) -> float:
         """
-        Apply Fibonacci-based growth to reach target stage
-        
-        Args:
-            target_stage: Target Fibonacci stage for growth
-        
-        Returns:
-            New coordinates with phi-optimized growth applied
+        Get the strength of a specific biblical attribute
         """
-        if not PHI_ENGINE_AVAILABLE or target_stage <= self.fibonacci_stage:
-            return PhiEnhancedBiblicalCoordinates(self.love, self.power, self.wisdom, self.justice)
-        
-        # Calculate growth factor using Fibonacci progression
-        fib_seq = FibonacciSequence()
-        current_fib = fib_seq.get(self.fibonacci_stage) if self.fibonacci_stage < 50 else 1
-        target_fib = fib_seq.get(target_stage) if target_stage < 50 else 2
-        
-        if current_fib == 0:
-            growth_factor = 1.5  # Default growth
-        else:
-            growth_factor = target_fib / current_fib
-        
-        # Apply growth with phi-harmonization
-        phi_adjusted_growth = growth_factor * self.phi_growth_factor
-        max_growth = min(phi_adjusted_growth, PHI)  # Cap at golden ratio
-        
-        # Move coordinates toward JEHOVAH with phi-optimized growth
-        new_love = self.love + max_growth * 0.1 * (1.0 - self.love)
-        new_power = self.power + max_growth * 0.1 * (1.0 - self.power)
-        new_wisdom = self.wisdom + max_growth * 0.1 * (1.0 - self.wisdom)
-        new_justice = self.justice + max_growth * 0.1 * (1.0 - self.justice)
-        
-        return PhiEnhancedBiblicalCoordinates(new_love, new_power, new_wisdom, new_justice)
+        attribute_map = {
+            'love': self.love,
+            'power': self.power,
+            'wisdom': self.wisdom,
+            'justice': self.justice
+        }
+        return attribute_map.get(attribute, 0.0)
     
-    def rotate_by_golden_angle(self, plane: str = "LP", iterations: int = 1) -> 'PhiEnhancedBiblicalCoordinates':
-        """
-        Apply golden angle rotation for optimal semantic repositioning
-        
-        Args:
-            plane: Rotation plane (LP, LW, LJ, PW, PJ, WJ)
-            iterations: Number of golden angle rotations
-        
-        Returns:
-            New coordinates after golden angle rotation
-        """
-        if not PHI_ENGINE_AVAILABLE:
-            return PhiEnhancedBiblicalCoordinates(self.love, self.power, self.wisdom, self.justice)
-        
-        phi_coord = PhiCoordinate(self.love, self.power, self.wisdom, self.justice)
-        rotator = GoldenAngleRotator()
-        
-        rotated = rotator.rotate_4d(phi_coord, n=iterations, plane=plane)
-        
-        return PhiEnhancedBiblicalCoordinates(
-            rotated.love, rotated.power, rotated.wisdom, rotated.justice
-        )
-    
-    def to_tuple(self) -> Tuple[float, float, float, float]:
-        """Convert to standard tuple format"""
-        return (self.love, self.power, self.wisdom, self.justice)
-    
-    def to_phi_coordinate(self) -> Optional['PhiCoordinate']:
-        """Convert to phi-geometric coordinate"""
-        if PHI_ENGINE_AVAILABLE:
-            return PhiCoordinate(self.love, self.power, self.wisdom, self.justice)
-        return None
+    def __str__(self) -> str:
+        """String representation of coordinates"""
+        return f"({self.love:.3f}, {self.power:.3f}, {self.wisdom:.3f}, {self.justice:.3f})"
 
-@dataclass
-class SacredNumber:
-    """Enhanced sacred number with phi-geometric properties"""
-    value: int
-    biblical_context: str = ""
+    def __repr__(self) -> str:
+        """Official representation of coordinates"""
+        return f"BiblicalCoordinates{self.__str__()}"
+
+
+# ============================================================================
+# ICE-CENTRIC INTEGRATION - ADAPTER FUNCTIONS
+# ============================================================================
+
+def biblical_to_semantic(biblical_coords: BiblicalCoordinates) -> 'SemanticCoordinates':
+    """
+    Convert BiblicalCoordinates to ICE SemanticCoordinates
+
+    Args:
+        biblical_coords: BiblicalCoordinates to convert
+
+    Returns:
+        SemanticCoordinates with same values
+
+    Note:
+        Both coordinate systems use the same 4D space (LOVE, POWER, WISDOM, JUSTICE)
+    """
+    if not ICE_AVAILABLE:
+        raise ImportError("ICE-Centric engine not available. Cannot convert to SemanticCoordinates.")
+
+    return SemanticCoordinates(
+        love=biblical_coords.love,
+        power=biblical_coords.power,
+        wisdom=biblical_coords.wisdom,
+        justice=biblical_coords.justice
+    )
+
+
+def semantic_to_biblical(semantic_coords: 'SemanticCoordinates') -> BiblicalCoordinates:
+    """
+    Convert ICE SemanticCoordinates to BiblicalCoordinates
+
+    Args:
+        semantic_coords: SemanticCoordinates to convert
+
+    Returns:
+        BiblicalCoordinates with same values
+
+    Note:
+        Both coordinate systems use the same 4D space (LOVE, POWER, WISDOM, JUSTICE)
+    """
+    return BiblicalCoordinates(
+        love=semantic_coords.love,
+        power=semantic_coords.power,
+        wisdom=semantic_coords.wisdom,
+        justice=semantic_coords.justice
+    )
+
+
+def map_context_to_domain(context: str) -> 'ContextDomain':
+    """
+    Map string context to ICE ContextDomain enum
+
+    Args:
+        context: String context (e.g., 'biblical', 'educational', 'business')
+
+    Returns:
+        ContextDomain enum value
+
+    Note:
+        This allows backward compatibility with string-based contexts
+    """
+    if not ICE_AVAILABLE:
+        raise ImportError("ICE-Centric engine not available. Cannot map to ContextDomain.")
+
+    mapping = {
+        'biblical': ContextDomain.SPIRITUAL,
+        'religious': ContextDomain.SPIRITUAL,
+        'spiritual': ContextDomain.SPIRITUAL,
+        'ministry': ContextDomain.MINISTRY,
+        'ethical': ContextDomain.ETHICAL,
+        'moral': ContextDomain.ETHICAL,
+        'relational': ContextDomain.RELATIONAL,
+        'family': ContextDomain.RELATIONAL,
+        'educational': ContextDomain.EDUCATIONAL,
+        'school': ContextDomain.EDUCATIONAL,
+        'university': ContextDomain.EDUCATIONAL,
+        'academic': ContextDomain.EDUCATIONAL,
+        'general': ContextDomain.GENERAL,
+        'secular': ContextDomain.GENERAL,
+        'casual': ContextDomain.GENERAL,
+        'technical': ContextDomain.TECHNICAL,
+        'scientific': ContextDomain.TECHNICAL,
+        'business': ContextDomain.BUSINESS,
+        'professional': ContextDomain.BUSINESS,
+        'work': ContextDomain.BUSINESS,
+        'corporate': ContextDomain.BUSINESS
+    }
+
+    return mapping.get(context.lower(), ContextDomain.GENERAL)
+
+
+def infer_thought_type(text: str) -> 'ThoughtType':
+    """
+    Infer ThoughtType from text content
+
+    Args:
+        text: Input text to analyze
+
+    Returns:
+        ThoughtType enum value based on content analysis
+
+    Note:
+        Uses keyword matching to determine the most likely thought type.
+        Old system doesn't have thought types, so this enables ICE integration.
+    """
+    if not ICE_AVAILABLE:
+        raise ImportError("ICE-Centric engine not available. Cannot infer ThoughtType.")
+
+    text_lower = text.lower()
+
+    # Moral/ethical keywords
+    if any(word in text_lower for word in ['should', 'ought', 'right', 'wrong', 'moral', 'ethical', 'justice', 'righteous']):
+        return ThoughtType.MORAL_JUDGMENT
+
+    # Wisdom/practical keywords
+    if any(word in text_lower for word in ['wisdom', 'wise', 'prudent', 'practical', 'decision', 'choose', 'discern']):
+        return ThoughtType.PRACTICAL_WISDOM
+
+    # Divine/spiritual keywords
+    if any(word in text_lower for word in ['god', 'divine', 'holy', 'sacred', 'spiritual', 'jehovah', 'lord', 'christ']):
+        return ThoughtType.DIVINE_INSPIRATION
+
+    # Emotional keywords
+    if any(word in text_lower for word in ['feel', 'emotion', 'heart', 'love', 'compassion', 'mercy', 'grace']):
+        return ThoughtType.EMOTIONAL_EXPRESSION
+
+    # Theological keywords
+    if any(word in text_lower for word in ['theology', 'doctrine', 'scripture', 'biblical', 'faith', 'belief']):
+        return ThoughtType.THEOLOGICAL_QUESTION
+
+    # Interpersonal keywords
+    if any(word in text_lower for word in ['relationship', 'conflict', 'forgive', 'reconcile', 'communicate']):
+        return ThoughtType.INTERPERSONAL_CONFLICT
+
+    # Existential keywords
+    if any(word in text_lower for word in ['meaning', 'purpose', 'why', 'existence', 'life', 'death']):
+        return ThoughtType.EXISTENTIAL_QUESTION
+
+    # Creative keywords
+    if any(word in text_lower for word in ['create', 'design', 'imagine', 'innovate', 'express', 'art']):
+        return ThoughtType.CREATIVE_EXPRESSION
+
+    # Default to practical wisdom
+    return ThoughtType.PRACTICAL_WISDOM
+
+
+# ============================================================================
+# END ICE-CENTRIC INTEGRATION ADAPTERS
+# ============================================================================
+
+class BiblicalText:
+    """
+    Represents biblical text with rich metadata for semantic analysis
+    """
+    def __init__(self, text: str, reference: str = "", book: str = "",
+                 chapter: str = "", verse: str = ""):
+        self.text = text
+        self.reference = reference
+        self.book = book
+        self.chapter = chapter
+        self.verse = verse
+        self.words = self._extract_words(text)
+        self.concepts = self._extract_concepts(text)
+
+    def _extract_words(self, text: str) -> List[str]:
+        """Extract words from biblical text, preserving biblical meaning"""
+        # Convert to lowercase and split, handling biblical punctuation
+        text = text.lower()
+        # Replace biblical punctuation with spaces
+        text = re.sub(r'[^\w\s]', ' ', text)
+        words = [word.strip() for word in text.split() if word.strip()]
+        return words
     
-    def __post_init__(self):
-        # Core biblical sacred numbers
-        self.sacred_numbers = {
-            1: {"unity": "One God, one truth - Deuteronomy 6:4"},
-            2: {"witness": "Two witnesses - Deuteronomy 19:15"},
-            3: {"trinity": "Divine completeness - Matthew 28:19"},
-            4: {"creation": "Four corners of earth - Isaiah 11:12"},
-            5: {"grace": "Five ministries - Ephesians 4:11"},
-            6: {"humanity": "Six days of creation - Genesis 1"},
-            7: {"perfection": "Seven spirits - Revelation 1:4"},
-            8: {"new_beginnings": "Eight people on ark - 1 Peter 3:20"},
-            10: {"commandments": "Ten Commandments - Exodus 20"},
-            12: {"government": "Twelve tribes - Genesis 49"},
-            21: {"maturity": "7x3 perfection"},
-            40: {"testing": "40 days/years - Exodus 34:28"},
-            42: {"journey": "42 generations - Matthew 1"},
-            777: {"perfection": "Triple seven completion"}
+    def _extract_concepts(self, text: str) -> List[str]:
+        """Extract key biblical concepts from text"""
+        concepts = []
+        # Biblical concept mapping
+        concept_map = {
+            'god': ['divine', 'creator', 'almighty', 'lord', 'jehovah', 'father', 'spirit'],
+            'jesus': ['christ', 'messiah', 'savior', 'son of god', 'lamb of god'],
+            'holyspirit': ['holy spirit', 'comforter', 'advocate', 'spirit of truth'],
+            'love': ['charity', 'agape', 'compassion', 'mercy', 'grace', 'benevolence'],
+            'wisdom': ['understanding', 'knowledge', 'insight', 'discernment', 'prudence'],
+            'justice': ['righteousness', 'fairness', 'equity', 'judgment', 'truth'],
+            'faith': ['belief', 'trust', 'confidence', 'reliance', 'faithfulness'],
+            'hope': ['expectation', 'trust', 'confidence', 'anticipation', 'optimism'],
+            'peace': ['harmony', 'tranquility', 'contentment', 'rest', 'shalom'],
+            'sin': ['transgression', 'iniquity', 'wrongdoing', 'evil', 'corruption'],
+            'salvation': ['redemption', 'deliverance', 'rescue', 'freedom', 'eternal life'],
+            'worship': ['praise', 'adoration', 'reverence', 'honor', 'glorify']
         }
         
-        # Basic properties
-        self.is_sacred = self.value in self.sacred_numbers
-        self.meaning = self.sacred_numbers.get(self.value, {})
+        text_lower = text.lower()
         
-        # Phi-geometric properties
-        if PHI_ENGINE_AVAILABLE:
-            self._calculate_phi_properties()
-        else:
-            self._calculate_basic_properties()
-    
-    def _calculate_phi_properties(self):
-        """Calculate phi-geometric properties for sacred numbers"""
-        # Fibonacci relationship
-        fib_seq = FibonacciSequence()
-        self.is_fibonacci = any(fib_seq.get(i) == self.value for i in range(15))
-        self.fibonacci_index = None
-        
-        if self.is_fibonacci:
-            for i in range(15):
-                if fib_seq.get(i) == self.value:
-                    self.fibonacci_index = i
+        for main_concept, variants in concept_map.items():
+            for variant in variants:
+                if variant in text_lower:
+                    concepts.append(main_concept)
                     break
         
-        # Phi resonance
-        if self.value > 0:
-            phi_ratio = self.value / PHI
-            self.phi_proximity = 1.0 - abs(phi_ratio - round(phi_ratio)) if phi_ratio > 1 else 0.5
-        else:
-            self.phi_proximity = 0.0
+        return list(set(concepts))
+
+class BiblicalReference:
+    """
+    Biblical reference with detailed metadata
+    """
+    def __init__(self, book: str, chapter: str, verse: str, text: str,
+                 testament: str = "", theme: str = "", principle: str = ""):
+        self.book = book
+        self.chapter = chapter
+        self.verse = verse
+        self.text = text
+        self.testament = testament
+        self.theme = theme
+        self.principle = principle
+        self.coordinates = None  # Will be calculated later
+
+class BiblicalWisdomDatabase:
+    """
+    Comprehensive database of biblical wisdom references and their coordinates
+    """
+
+    def __init__(self):
+        self.references = self._initialize_references()
+        self.wisdom_principles = self._initialize_wisdom_principles()
+        self.coordinate_mappings = self._initialize_coordinate_mappings()
         
-        # Golden angle relationship
-        self.golden_angle_resonance = abs(math.sin(self.value * GOLDEN_ANGLE_RAD))
-        
-        # Overall sacred resonance
-        biblical_weight = 1.0 if self.is_sacred else 0.3
-        fibonacci_weight = 1.0 if self.is_fibonacci else 0.2
-        phi_weight = self.phi_proximity
-        
-        self.sacred_resonance = (biblical_weight * 0.5 + 
-                               fibonacci_weight * 0.3 + 
-                               phi_weight * 0.2)
-    
-    def _calculate_basic_properties(self):
-        """Calculate basic properties without phi engine"""
-        self.is_fibonacci = self.value in [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-        self.fibonacci_index = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34].index(self.value) if self.is_fibonacci else None
-        self.phi_proximity = 0.5
-        self.golden_angle_resonance = 0.5
-        self.sacred_resonance = 1.0 if self.is_sacred else 0.3
-    
-    def get_phi_enhanced_meaning(self) -> Dict[str, Any]:
-        """Get phi-enhanced biblical meaning"""
+    def _initialize_references(self) -> Dict[str, BiblicalReference]:
+        """Initialize key biblical wisdom references"""
         return {
-            "value": self.value,
-            "is_sacred": self.is_sacred,
-            "biblical_meaning": self.meaning,
-            "is_fibonacci": self.is_fibonacci,
-            "fibonacci_index": self.fibonacci_index,
-            "phi_proximity": self.phi_proximity,
-            "golden_angle_resonance": self.golden_angle_resonance,
-            "sacred_resonance": self.sacred_resonance,
-            "context": self.biblical_context
+            'proverbs_9_10': BiblicalReference(
+                'Proverbs', '9', '10',
+                'The fear of Jehovah is the beginning of wisdom',
+                'Old Testament', 'Foundational Wisdom', BiblicalPrinciple.FEAR_OF_JEHOVAH
+            ),
+            'james_1_5': BiblicalReference(
+                'James', '1', '5',
+                'If any of you lacks wisdom, let him ask God',
+                'New Testament', 'Divine Wisdom Source', BiblicalPrinciple.WISDOM
+            ),
+            'daniel_2_20': BiblicalReference(
+                'Daniel', '2', '20',
+                'Blessed be the name of God forever and ever, for wisdom and might are His',
+                'Old Testament', 'Divine Attribute', BiblicalPrinciple.WISDOM
+            ),
+            'job_28_28': BiblicalReference(
+                'Job', '28', '28',
+                'And to man He said, Behold, the fear of the Lord, that is wisdom',
+                'Old Testament', 'Fear of God', BiblicalPrinciple.FEAR_OF_JEHOVAH
+            ),
+            'ecclesiastes_2_26': BiblicalReference(
+                'Ecclesiastes', '2', '26',
+                'For God gives wisdom and knowledge and joy',
+                'Old Testament', 'Divine Gift', BiblicalPrinciple.WISDOM
+            ),
+            'colossians_2_3': BiblicalReference(
+                'Colossians', '2', '3',
+                'In whom are hidden all the treasures of wisdom and knowledge',
+                'New Testament', 'Christ Centered', BiblicalPrinciple.WISDOM
+            ),
+            'proverbs_4_7': BiblicalReference(
+                'Proverbs', '4', '7',
+                'The beginning of wisdom is this: Get wisdom',
+                'Old Testament', 'Wisdom Pursuit', BiblicalPrinciple.WISDOM
+            ),
+            'psalm_111_10': BiblicalReference(
+                'Psalm', '111', '10',
+                'The fear of the Lord is the beginning of wisdom',
+                'Old Testament', 'Worship', BiblicalPrinciple.FEAR_OF_JEHOVAH
+            ),
+            'john_3_16': BiblicalReference(
+                'John', '3', '16',
+                'For God so loved the world that He gave His only begotten Son',
+                'New Testament', 'Divine Love', BiblicalPrinciple.LOVE
+            ),
+            'matthew_6_33': BiblicalReference(
+                'Matthew', '6', '33',
+                'But seek first the kingdom of God and His righteousness',
+                'New Testament', 'Priorities', BiblicalPrinciple.JUSTICE
+            ),
+            'micah_6_8': BiblicalReference(
+                'Micah', '6', '8',
+                'He has shown you, O man, what is good',
+                'Old Testament', 'Justice Requirements', BiblicalPrinciple.JUSTICE
+            )
+        }
+    
+    def _initialize_wisdom_principles(self) -> Dict[BiblicalPrinciple, Dict]:
+        """Initialize biblical wisdom principles with their characteristics"""
+        return {
+            BiblicalPrinciple.FEAR_OF_JEHOVAH: {
+                'description': 'Reverence and awe of JEHOVAH as foundation of wisdom',
+                'scriptures': ['proverbs_9_10', 'psalm_111_10', 'job_28_28'],
+                'coordinates': BiblicalCoordinates(0.3, 0.4, 0.9, 0.8),
+                'weight': 1.0,  # Highest weight - foundation of wisdom
+                'application': 'All wisdom begins here'
+            },
+            BiblicalPrinciple.LOVE: {
+                'description': 'Divine love as source of true wisdom',
+                'scriptures': ['john_3_16', '1_john_4_8', '1_corinthians_13'],
+                'coordinates': BiblicalCoordinates(0.9, 0.6, 0.8, 0.8),
+                'weight': 0.9,
+                'application': 'Love provides the context for wisdom'
+            },
+            BiblicalPrinciple.WISDOM: {
+                'description': 'Divine wisdom and understanding',
+                'scriptures': ['james_1_5', 'proverbs_2_6', 'daniel_2_20'],
+                'coordinates': BiblicalCoordinates(0.7, 0.8, 0.9, 0.8),
+                'weight': 0.95,
+                'application': 'Core of biblical understanding'
+            },
+            BiblicalPrinciple.JUSTICE: {
+                'description': 'Divine justice and righteousness',
+                'scriptures': ['isaiah_61_8', 'micah_6_8', 'psalm_89_14'],
+                'coordinates': BiblicalCoordinates(0.6, 0.7, 0.8, 0.9),
+                'weight': 0.85,
+                'application': 'Wisdom must be expressed justly'
+            },
+            BiblicalPrinciple.MERCY: {
+                'description': 'Divine mercy in wisdom',
+                'scriptures': ['psalm_86_5', 'luke_6_36', 'ephesians_2_4'],
+                'coordinates': BiblicalCoordinates(0.8, 0.6, 0.7, 0.9),
+                'weight': 0.8,
+                'application': 'Wisdom tempered with mercy'
+            },
+            BiblicalPrinciple.GRACE: {
+                'description': 'Divine grace in wisdom',
+                'scriptures': ['2_corinthians_12_9', 'ephesians_2_8', 'titus_2_11'],
+                'coordinates': BiblicalCoordinates(0.9, 0.5, 0.6, 0.7),
+                'weight': 0.8,
+                'application': 'Wisdom operates through grace'
+            },
+            BiblicalPrinciple.TRUTH: {
+                'description': 'Divine truth as foundation of wisdom',
+                'scriptures': ['john_8_32', 'psalm_25_5', '2_timothy_2_15'],
+                'coordinates': BiblicalCoordinates(0.7, 0.8, 0.9, 0.9),
+                'weight': 0.85,
+                'application': 'Wisdom must align with truth'
+            },
+            BiblicalPrinciple.FAITH: {
+                'description': 'Faith as pathway to wisdom',
+                'scriptures': ['hebrews_11_1', 'romans_10_17', 'james_1_6'],
+                'coordinates': BiblicalCoordinates(0.8, 0.7, 0.7, 0.8),
+                'weight': 0.7,
+                'application': 'Wisdom accessed through faith'
+            }
+        }
+    
+    def _initialize_coordinate_mappings(self) -> Dict[str, BiblicalCoordinates]:
+        """Initialize coordinate mappings for biblical wisdom"""
+        return {
+            # Biblical figure coordinates
+            'jesus_christ': BiblicalCoordinates(0.95, 0.9, 0.95, 1.0),
+            'moses': BiblicalCoordinates(0.8, 0.85, 0.9, 0.85),
+            'david': BiblicalCoordinates(0.85, 0.7, 0.8, 0.75),
+            'solomon': BiblicalCoordinates(0.9, 0.8, 1.0, 0.9),
+            'paul': BiblicalCoordinates(0.8, 0.9, 0.95, 0.95),
+            'peter': BiblicalCoordinates(0.8, 0.7, 0.85, 0.8),
+            'mary': BiblicalCoordinates(0.9, 0.6, 0.7, 0.8),
+            'abraham': BiblicalCoordinates(0.9, 0.8, 0.8, 0.9),
+
+            # Divine entity coordinates
+            'god': BiblicalCoordinates(1.0, 1.0, 1.0, 1.0),
+            'jesus': BiblicalCoordinates(0.95, 0.9, 0.95, 1.0),
+            'holyspirit': BiblicalCoordinates(0.9, 0.8, 0.9, 0.9),
+            'jehovah': BiblicalCoordinates(1.0, 1.0, 1.0, 1.0),
+
+            # Biblical concept coordinates
+            'divinelove': BiblicalCoordinates(1.0, 0.8, 0.9, 0.9),
+            'divinewisdom': BiblicalCoordinates(0.8, 0.85, 1.0, 0.85),
+            'divinejustice': BiblicalCoordinates(0.7, 0.9, 0.8, 1.0),
+            'divinemercy': BiblicalCoordinates(0.9, 0.6, 0.8, 0.9),
+            'divinegrace': BiblicalCoordinates(0.9, 0.7, 0.7, 0.8),
+            'divinetruth': BiblicalCoordinates(0.8, 0.9, 0.95, 0.9),
+            'divinefaith': BiblicalCoordinates(0.8, 0.7, 0.7, 0.8),
+            'divinehope': BiblicalCoordinates(0.9, 0.6, 0.6, 0.8),
+            'divinepeace': BiblicalCoordinates(0.8, 0.7, 0.8, 0.9),
+            'divinejoy': BiblicalCoordinates(0.95, 0.6, 0.7, 0.8),
+            'divineholiness': BiblicalCoordinates(0.8, 0.9, 0.8, 1.0),
+            'divinerighteousness': BiblicalCoordinates(0.7, 0.9, 0.8, 1.0),
+            'divinestewardship': BiblicalCoordinates(0.8, 0.7, 0.8, 0.9),
+            'divineservice': BiblicalCoordinates(0.9, 0.6, 0.7, 0.8),
+            'divineexcellence': BiblicalCoordinates(0.85, 0.8, 0.9, 0.9),
+            'divineintegrity': BiblicalCoordinates(0.8, 0.9, 0.9, 0.95),
+            'divinehumility': BiblicalCoordinates(0.7, 0.6, 0.8, 0.8)
         }
 
-class PhiEnhancedBiblicalSemanticSubstrate:
+    def get_reference_coordinates(self, reference_key: str) -> BiblicalCoordinates:
+        """Get coordinates for a biblical reference"""
+        if reference_key in self.references:
+            ref = self.references[reference_key]
+            if ref.coordinates is None:
+                # Calculate coordinates based on principle
+                principle_data = self.wisdom_principles.get(ref.principle)
+                if principle_data:
+                    return principle_data['coordinates']
+            return ref.coordinates
+        return BiblicalCoordinates(0.0, 0.0, 0.0, 0.0)
+
+    def search_references_by_principle(self, principle: BiblicalPrinciple) -> List[BiblicalReference]:
+        """Search biblical references by principle"""
+        return [ref for ref in self.references.values() if ref.principle == principle]
+
+class BiblicalSemanticSubstrate:
     """
-    Phi-enhanced biblical semantic substrate with golden ratio mathematics
+    Baseline Bible-based Semantic Substrate Engine
     
-    Enhanced capabilities:
-    - Phi-optimized concept analysis
-    - Fibonacci-based semantic growth
-    - Dodecahedral anchor navigation
-    - Sacred geometry alignment
-    - Golden spiral distance calculations
+    This engine provides biblical semantic analysis while maintaining flexibility
+    for secular environments. All coordinates are based on biblical standards
+    but the system can operate on any text or concept.
     """
     
     def __init__(self):
-        self.version = "1.5 - Phi-Enhanced Biblical Substrate"
+        # Core biblical foundation
+        self.jehovah_coordinates = BiblicalCoordinates(1.0, 1.0, 1.0, 1.0)
+        self.biblical_database = BiblicalWisdomDatabase()
         
-        # Initialize phi-geometric components
-        if PHI_ENGINE_AVAILABLE:
-            self.fibonacci = FibonacciSequence()
-            self.golden_spiral = GoldenSpiral()
-            self.rotator = GoldenAngleRotator()
-            self.dodecahedral_anchors = DodecahedralAnchors()
-            print("[INITIALIZED] Phi-geometric engine for biblical analysis")
-        else:
-            print("[INFO] Phi-geometric engine not available, using baseline analysis")
+        # Semantic analysis components
+        self.biblical_keywords = self._initialize_biblical_keywords()
+        self.biblical_concepts = self._initialize_biblical_concepts()
+        self.biblical_patterns = self._initialize_biblical_patterns()
         
-        # Initialize ICE engine if available
-        if ICE_AVAILABLE:
-            self.ice_engine = ICESemanticSubstrateEngine()
-            print("[INITIALIZED] ICE-Centric engine for biblical processing")
-        else:
-            self.ice_engine = None
-        
-        # Biblical lexicon with phi-enhanced scoring
-        self.biblical_lexicon = self._create_phi_enhanced_lexicon()
-        
-        # Sacred numbers database
-        self.sacred_numbers_db = self._create_sacred_numbers_database()
-        
-        print(f"[READY] {self.version}")
-    
-    def _create_phi_enhanced_lexicon(self) -> Dict[str, Dict[str, float]]:
-        """Create phi-enhanced biblical lexicon"""
-        lexicon = {
-            # Love-based words
-            'love': {'love': 0.9, 'power': 0.3, 'wisdom': 0.6, 'justice': 0.5, 'phi_weight': 1.2},
-            'agape': {'love': 1.0, 'power': 0.2, 'wisdom': 0.7, 'justice': 0.4, 'phi_weight': 1.5},
-            'mercy': {'love': 0.8, 'power': 0.2, 'wisdom': 0.5, 'justice': 0.6, 'phi_weight': 1.1},
-            'compassion': {'love': 0.85, 'power': 0.25, 'wisdom': 0.6, 'justice': 0.5, 'phi_weight': 1.0},
-            'forgiveness': {'love': 0.9, 'power': 0.1, 'wisdom': 0.7, 'justice': 0.4, 'phi_weight': 1.3},
-            
-            # Power-based words
-            'power': {'love': 0.3, 'power': 0.9, 'wisdom': 0.4, 'justice': 0.7, 'phi_weight': 1.0},
-            'authority': {'love': 0.2, 'power': 0.95, 'wisdom': 0.5, 'justice': 0.8, 'phi_weight': 1.1},
-            'strength': {'love': 0.4, 'power': 0.85, 'wisdom': 0.3, 'justice': 0.6, 'phi_weight': 0.9},
-            'sovereignty': {'love': 0.3, 'power': 1.0, 'wisdom': 0.6, 'justice': 0.7, 'phi_weight': 1.4},
-            'might': {'love': 0.2, 'power': 0.8, 'wisdom': 0.3, 'justice': 0.5, 'phi_weight': 0.8},
-            
-            # Wisdom-based words
-            'wisdom': {'love': 0.6, 'power': 0.4, 'wisdom': 0.95, 'justice': 0.7, 'phi_weight': 1.2},
-            'understanding': {'love': 0.5, 'power': 0.3, 'wisdom': 0.9, 'justice': 0.6, 'phi_weight': 1.0},
-            'knowledge': {'love': 0.3, 'power': 0.4, 'wisdom': 0.8, 'justice': 0.5, 'phi_weight': 0.8},
-            'discernment': {'love': 0.6, 'power': 0.3, 'wisdom': 0.95, 'justice': 0.8, 'phi_weight': 1.3},
-            'insight': {'love': 0.5, 'power': 0.3, 'wisdom': 0.9, 'justice': 0.6, 'phi_weight': 1.1},
-            
-            # Justice-based words
-            'justice': {'love': 0.4, 'power': 0.7, 'wisdom': 0.7, 'justice': 0.95, 'phi_weight': 1.1},
-            'righteousness': {'love': 0.6, 'power': 0.5, 'wisdom': 0.8, 'justice': 1.0, 'phi_weight': 1.4},
-            'fairness': {'love': 0.5, 'power': 0.4, 'wisdom': 0.6, 'justice': 0.85, 'phi_weight': 0.9},
-            'truth': {'love': 0.4, 'power': 0.3, 'wisdom': 0.9, 'justice': 0.95, 'phi_weight': 1.5},
-            'judgment': {'love': 0.2, 'power': 0.8, 'wisdom': 0.7, 'justice': 0.9, 'phi_weight': 1.0},
-            
-            # Phi-sacred words
-            'divine': {'love': 0.9, 'power': 0.9, 'wisdom': 0.9, 'justice': 0.9, 'phi_weight': 2.0},
-            'holy': {'love': 0.8, 'power': 0.6, 'wisdom': 0.8, 'justice': 0.8, 'phi_weight': 1.8},
-            'eternal': {'love': 0.85, 'power': 0.8, 'wisdom': 0.9, 'justice': 0.85, 'phi_weight': 1.9},
-            'sacred': {'love': 0.8, 'power': 0.5, 'wisdom': 0.8, 'justice': 0.8, 'phi_weight': 1.7},
-            'perfect': {'love': 0.9, 'power': 0.8, 'wisdom': 0.9, 'justice': 0.9, 'phi_weight': 1.8}
+        # Analysis weights (biblically balanced)
+        self.coordinate_weights = {
+            'wisdom_primary': 0.4,      # Wisdom is primary (Proverbs 9:10)
+            'love_secondary': 0.2,       # Love guides wisdom (1 Corinthians 13)
+            'justice_secondary': 0.2,    # Justice frames wisdom (Isaiah 61:8)
+            'power_secondary': 0.1,      # Power enacts wisdom (Daniel 2:20)
+            'balance_correction': 0.1      # Balance among attributes
         }
         
-        # Apply phi-weighting to enhance biblical alignment
-        for word, coords in lexicon.items():
-            phi_weight = coords.get('phi_weight', 1.0)
-            if PHI_ENGINE_AVAILABLE and phi_weight > 1.0:
-                # Enhance coordinates with golden ratio harmony
-                harmony_factor = min(PHI / phi_weight, 1.0)
-                for axis in ['love', 'power', 'wisdom', 'justice']:
-                    coords[axis] = min(1.0, coords[axis] * harmony_factor)
+        # Secular compatibility components
+        self.secular_keywords = self._initialize_secular_keywords()
+        self.contextual_modifiers = self._initialize_contextual_modifiers()
         
-        return lexicon
-    
-    def _create_sacred_numbers_database(self) -> Dict[int, SacredNumber]:
-        """Create database of sacred numbers with phi enhancement"""
-        sacred_values = [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 21, 40, 42, 777]
+        # Analysis cache for performance
+        self.coordinate_cache = {}
+        self.analysis_cache = {}
         
+        # System state
+        self.analysis_count = 0
+        self.last_analysis_time = 0
+
+        # ICE-Centric engine (lazy initialization)
+        self._ice_engine = None
+
+    def _initialize_biblical_keywords(self) -> Dict[str, List[str]]:
+        """Initialize comprehensive biblical keyword mappings"""
         return {
-            value: SacredNumber(value, "biblical_physics_enhanced")
-            for value in sacred_values
+            # Love-related keywords
+            'love': ['love', 'loving', 'loved', 'beloved', 'agape', 'charity', 'compassion',
+                      'mercy', 'grace', 'kindness', 'gentleness', 'tenderness', 'affection',
+                      'caring', 'nurturing', 'forgiving', 'patient', 'longsuffering'],
+
+            # Power-related keywords
+            'power': ['power', 'powerful', 'almighty', 'sovereign', 'lord', 'god', 'master',
+                      'authority', 'dominion', 'rule', 'reign', 'might', 'strength',
+                      'creator', 'maker', 'father', 'king', 'ruler', 'command', 'ordain'],
+
+            # Wisdom-related keywords
+            'wisdom': ['wisdom', 'wise', 'wisely', 'wisdom\'s', 'understanding', 'knowledge',
+                      'insight', 'discernment', 'judgment', 'prudence', 'discretion',
+                      'learning', 'study', 'teaching', 'instruction', 'guidance', 'counsel'],
+
+            # Justice-related keywords
+            'justice': ['justice', 'just', 'righteous', 'righteousness', 'holy', 'holy',
+                        'pure', 'morality', 'ethical', 'fair', 'equitable', 'truth',
+                        'upright', 'goodness', 'virtue', 'character', 'integrity'],
+
+            # Core theological concepts
+            'god': ['god', 'lord', 'jehovah', 'yahweh', 'father', 'creator', 'almighty'],
+            'jesus': ['jesus', 'christ', 'messiah', 'savior', 'lord', 'son of god', 'lamb'],
+            'holyspirit': ['holy spirit', 'spirit', 'comforter', 'advocate', 'spirit of truth'],
+            'salvation': ['salvation', 'saved', 'redeemed', 'forgiven', 'delivered', 'freedom'],
+            'faith': ['faith', 'believe', 'trust', 'rely', 'confidence', 'hopeful'],
+            'bible': ['bible', 'scripture', 'word', 'testament', 'biblical', 'scriptural'],
+            'worship': ['worship', 'praise', 'glorify', 'honor', 'reverence', 'pray']
         }
     
-    def analyze_concept(self, text: str, context: str = "biblical") -> PhiEnhancedBiblicalCoordinates:
+    def _initialize_biblical_concepts(self) -> Dict[str, List[str]]:
+        """Initialize biblical concept categories"""
+        return {
+            # Virtues
+            'virtues': ['faith', 'hope', 'love', 'joy', 'peace', 'patience', 'kindness', 'goodness'],
+            'fruits': ['love', 'joy', 'peace', 'patience', 'kindness', 'goodness', 'faithfulness', 'gentleness'],
+            
+            # Sins
+            'sins': ['pride', 'envy', 'lust', 'anger', 'gluttony', 'sloth', 'greed', 'lying'],
+            
+            # Spiritual concepts
+            'spiritual': ['spirit', 'spiritual', 'soul', 'eternal', 'heavenly', 'divine'],
+            'moral': ['moral', 'ethics', 'character', 'integrity', 'honesty', 'truth'],
+            
+            # Relational
+            'relationships': ['family', 'marriage', 'friendship', 'community', 'church'],
+            
+            # Life domains
+            'work': ['work', 'labor', 'vocation', 'career', 'job', 'calling', 'ministry'],
+            'family': ['mother', 'father', 'parent', 'child', 'brother', 'sister'],
+            'health': ['health', 'healing', 'body', 'mind', 'spiritual health']
+        }
+    
+    def _initialize_biblical_patterns(self) -> Dict[str, List[str]]:
+        """Initialize biblical wisdom patterns for recognition"""
+        return {
+            'fear_of_jehovah': [
+                'fear of jehovah', 'fear of the lord', 'reverence for god',
+                'awe of god', 'respect for the lord', 'holy fear', 'godly fear'
+            ],
+            'wisdom_pursuit': [
+                'ask for wisdom', 'seek wisdom', 'get wisdom', 'desire wisdom',
+                'pray for wisdom', 'god gives wisdom', 'wisdom from god'
+            ],
+            'wisdom_application': [
+                'wise decisions', 'wise choices', 'walk in wisdom', 'live wisely',
+                'act wisely', 'speak wisdom', 'teach wisdom'
+            ],
+            'divine_source': [
+                'god is wisdom', 'wisdom from god', 'divine wisdom',
+                'godly wisdom', 'heavenly wisdom', 'sacred wisdom'
+            ],
+            'wisdom_results': [
+                'wisdom brings', 'through wisdom', 'with wisdom',
+                'by wisdom', 'in wisdom', 'of wisdom'
+            ]
+        }
+    
+    def _initialize_secular_keywords(self) -> Dict[str, List[str]]:
+        """Initialize keywords for secular compatibility"""
+        return {
+            # General positive concepts
+            'positive': ['good', 'excellent', 'great', 'wonderful', 'amazing', 'outstanding'],
+            'negative': ['bad', 'evil', 'wrong', 'harmful', 'dangerous', 'toxic'],
+
+            # Professional concepts
+            'professional': ['work', 'career', 'business', 'job', 'skill', 'expertise'],
+            'educational': ['learn', 'study', 'teach', 'knowledge', 'education'],
+            'health': ['health', 'medical', 'wellness', 'fitness', 'mental health'],
+
+            # Social concepts
+            'social': ['community', 'society', 'relationship', 'family', 'friendship'],
+            'economic': ['money', 'economy', 'finance', 'business', 'trade'],
+            'technological': ['technology', 'digital', 'computer', 'internet', 'data']
+        }
+
+    def _initialize_contextual_modifiers(self) -> Dict[str, float]:
+        """Initialize contextual modifiers for different environments"""
+        return {
+            # Biblical contexts get full biblical weight
+            'biblical': 1.0,
+            'theological': 0.9,
+            'religious': 0.9,
+            'spiritual': 0.8,
+
+            # Educational contexts get moderate biblical weight
+            'educational': 0.6,
+            'school': 0.6,
+            'university': 0.5,
+
+            # Professional contexts get balanced weight
+            'professional': 0.4,
+            'work': 0.4,
+            'business': 0.4,
+            'corporate': 0.4,
+
+            # Secular contexts get biblical integration where appropriate
+            'secular': 0.3,
+            'general': 0.3,
+            'casual': 0.3,
+
+            # Scientific contexts get wisdom emphasis
+            'scientific': 0.5,
+            'research': 0.6,
+            'academic': 0.5
+        }
+
+    def analyze_concept(self, concept_description: str, context: str = "general") -> BiblicalCoordinates:
         """
-        Analyze concept with phi-enhanced biblical processing
+        Analyze a concept and return biblical coordinates
         
+        Args:
+            concept_description: Text description of the concept to analyze
+            context: Context of the analysis (biblical, secular, etc.)
+
+        Returns:
+            BiblicalCoordinates representing the concept's alignment with biblical attributes
+        """
+        # Check cache first
+        cache_key = f"{concept_description}:{context}"
+        if cache_key in self.coordinate_cache:
+            return self.coordinate_cache[cache_key]
+        
+        # Get contextual modifier
+        context_modifier = self.contextual_modifiers.get(context.lower(), 0.3)
+        
+        # Initialize coordinates with a small base value
+        love = 0.1
+        power = 0.1
+        wisdom = 0.1
+        justice = 0.1
+        
+        # Process text
+        text_lower = concept_description.lower()
+        words = text_lower.split()
+        
+        # Biblical keyword analysis
+        base_score = 0.25 # A more substantial base score for keyword matches
+        for category, keywords in self.biblical_keywords.items():
+            for keyword in keywords:
+                if keyword in text_lower:
+                    if category == 'love':
+                        love += base_score
+                    elif category == 'power':
+                        power += base_score
+                    elif category == 'wisdom':
+                        wisdom += base_score
+                    elif category == 'justice':
+                        justice += base_score
+        
+        # Biblical pattern analysis
+        pattern_scores = {}
+        for pattern_name, patterns in self.biblical_patterns.items():
+            score = 0.0
+            for pattern in patterns:
+                if pattern in text_lower:
+                    score += 0.4 # Increased pattern weight
+            pattern_scores[pattern_name] = min(score, 1.0)
+        
+        # Pattern adjustments
+        if pattern_scores.get('fear_of_jehovah', 0) > 0:
+            wisdom += 0.4
+            love += 0.2
+            justice += 0.2
+        
+        if pattern_scores.get('wisdom_pursuit', 0) > 0:
+            wisdom += 0.3
+            love += 0.1
+            power += 0.1
+
+        if pattern_scores.get('divine_source', 0) > 0:
+            wisdom += 0.5
+            love += 0.2
+            power += 0.1
+            justice += 0.2
+        
+        # Entity adjustments
+        for entity, coords in self.biblical_database.coordinate_mappings.items():
+            if entity in text_lower:
+                weight = 0.3
+                love += coords.love * weight
+                power += coords.power * weight
+                wisdom += coords.wisdom * weight
+                justice += coords.justice * weight
+        
+        # Apply context modifier
+        love *= context_modifier
+        power *= context_modifier
+        wisdom *= context_modifier
+        justice *= context_modifier
+        
+        # Ensure coordinates are within valid range
+        coordinates = BiblicalCoordinates(
+            love=min(max(0.0, love), 1.0),
+            power=min(max(0.0, power), 1.0),
+            wisdom=min(max(0.0, wisdom), 1.0),
+            justice=min(max(0.0, justice), 1.0)
+        )
+        
+        # Cache result
+        self.coordinate_cache[cache_key] = coordinates
+
+        return coordinates
+
+    # ============================================================================
+    # ICE-CENTRIC INTEGRATION METHODS
+    # ============================================================================
+
+    def analyze_concept_ice(self, text: str, thought_type: Optional['ThoughtType'] = None,
+                           context_domain: Optional['ContextDomain'] = None) -> 'ICETransformationResult':
+        """
+        Analyze concept using ICE-Centric Semantic Substrate Engine
+
+        This method provides enhanced semantic processing through the ICE framework:
+        - Intent: Extract and map semantic intent to 4D coordinates
+        - Context: Apply context-aware alignment with universal anchor
+        - Execution: Generate behaviorally-aligned output with execution strategy
+
         Args:
             text: Text to analyze
-            context: Analysis context
-        
+            thought_type: Type of thought (optional, will be inferred if not provided)
+            context_domain: Context domain (optional, defaults to SPIRITUAL for biblical content)
+
         Returns:
-            Phi-enhanced biblical coordinates
+            ICETransformationResult with complete transformation details
+
+        Raises:
+            ImportError: If ICE-Centric engine is not available
+
+        Example:
+            >>> engine = BiblicalSemanticSubstrate()
+            >>> result = engine.analyze_concept_ice("Show compassion and mercy")
+            >>> print(f"Alignment: {result.divine_alignment:.2%}")
+            >>> print(f"Strategy: {result.execution_strategy}")
         """
-        # Try ICE engine first for enhanced processing
-        if self.ice_engine:
-            try:
-                from .baseline_biblical_substrate import map_context_to_domain, infer_thought_type
-                context_domain = map_context_to_domain(context)
-                thought_type = infer_thought_type(text)
-                
-                ice_result = self.ice_engine.transform(text, thought_type, context_domain)
-                
-                # Convert ICE result to phi-enhanced coordinates
-                return PhiEnhancedBiblicalCoordinates(
-                    ice_result.final_coordinates.love,
-                    ice_result.final_coordinates.power,
-                    ice_result.final_coordinates.wisdom,
-                    ice_result.final_coordinates.justice
-                )
-            except Exception:
-                pass  # Fallback to phi-enhanced biblical analysis
-        
-        # Phi-enhanced biblical analysis
-        return self._phi_enhanced_biblical_analysis(text, context)
-    
-    def _phi_enhanced_biblical_analysis(self, text: str, context: str) -> PhiEnhancedBiblicalCoordinates:
-        """Perform phi-enhanced biblical semantic analysis"""
-        # Tokenize and normalize text
-        words = re.findall(r'\b\w+\b', text.lower())
-        
-        # Initialize coordinates
-        total_love = total_power = total_wisdom = total_justice = 0.0
-        total_weight = 0.0
-        
-        # Process each word with phi enhancement
-        for word in words:
-            if word in self.biblical_lexicon:
-                coords = self.biblical_lexicon[word]
-                weight = coords.get('phi_weight', 1.0)
-                
-                total_love += coords['love'] * weight
-                total_power += coords['power'] * weight
-                total_wisdom += coords['wisdom'] * weight
-                total_justice += coords['justice'] * weight
-                total_weight += weight
-        
-        # Analyze sacred numbers in text
-        numbers = re.findall(r'\b\d+\b', text)
-        sacred_bonus = {'love': 0, 'power': 0, 'wisdom': 0, 'justice': 0}
-        
-        for num_str in numbers:
-            num = int(num_str)
-            if num in self.sacred_numbers_db:
-                sacred_num = self.sacred_numbers_db[num]
-                resonance = sacred_num.sacred_resonance
-                
-                # Distribute sacred number resonance based on meaning
-                if sacred_num.is_fibonacci:
-                    sacred_bonus['wisdom'] += resonance * 0.4
-                    sacred_bonus['love'] += resonance * 0.3
-                    sacred_bonus['justice'] += resonance * 0.3
-                elif num in [3, 7, 12, 21]:
-                    sacred_bonus['power'] += resonance * 0.4
-                    sacred_bonus['justice'] += resonance * 0.4
-                    sacred_bonus['love'] += resonance * 0.2
-                else:
-                    # General sacred enhancement
-                    for axis in sacred_bonus:
-                        sacred_bonus[axis] += resonance * 0.25
-        
-        # Calculate final coordinates
-        if total_weight > 0:
-            love = min(1.0, (total_love / total_weight + sacred_bonus['love'] * 0.1))
-            power = min(1.0, (total_power / total_weight + sacred_bonus['power'] * 0.1))
-            wisdom = min(1.0, (total_wisdom / total_weight + sacred_bonus['wisdom'] * 0.1))
-            justice = min(1.0, (total_justice / total_weight + sacred_bonus['justice'] * 0.1))
-        else:
-            # Default balanced coordinates for unknown text
-            love = power = wisdom = justice = 0.5 + (sum(sacred_bonus.values()) / 4) * 0.1
-        
-        # Apply phi-geometry enhancements
-        coords = PhiEnhancedBiblicalCoordinates(love, power, wisdom, justice)
-        
-        # Apply golden angle rotation for optimal semantic positioning
-        if PHI_ENGINE_AVAILABLE and context != "literal":
-            coords = coords.rotate_by_golden_angle(plane="LW", iterations=1)
-        
-        return coords
-    
-    def get_concept_evolution_path(self, text: str, target_stages: int = 5) -> List[PhiEnhancedBiblicalCoordinates]:
+        if not ICE_AVAILABLE:
+            raise ImportError("ICE-Centric engine not available. Please install ice_semantic_substrate_engine.py")
+
+        # Lazy initialization of ICE engine
+        if self._ice_engine is None:
+            self._ice_engine = ICESemanticSubstrateEngine()
+
+        # Infer thought type if not provided
+        if thought_type is None:
+            thought_type = infer_thought_type(text)
+
+        # Default to SPIRITUAL context for biblical content
+        if context_domain is None:
+            context_domain = ContextDomain.SPIRITUAL
+
+        # Perform ICE transformation
+        ice_result = self._ice_engine.transform(text, thought_type, context_domain)
+
+        # Increment analysis counter
+        self.analysis_count += 1
+
+        return ice_result
+
+    def analyze_concept_enhanced(self, text: str, context: str = "general",
+                                use_ice: bool = False,
+                                thought_type: Optional['ThoughtType'] = None) -> Union[BiblicalCoordinates, 'ICETransformationResult']:
         """
-        Generate Fibonacci-based evolution path for concept
-        
-        Args:
-            text: Starting concept
-            target_stages: Number of Fibonacci stages to evolve
-        
-        Returns:
-            List of coordinates showing evolution path
-        """
-        initial_coords = self.analyze_concept(text, "evolution")
-        
-        path = [initial_coords]
-        current = initial_coords
-        
-        for stage in range(1, target_stages + 1):
-            next_stage = current.fibonacci_stage + stage
-            evolved = current.apply_phi_growth(next_stage)
-            path.append(evolved)
-            current = evolved
-        
-        return path
-    
-    def analyze_sacred_geometry_alignment(self, text: str) -> Dict[str, Any]:
-        """
-        Analyze sacred geometry alignment of concept
-        
+        Enhanced concept analysis with optional ICE processing
+
+        This method provides backward-compatible analysis with opt-in ICE enhancement.
+        When use_ice=False, it uses the traditional analyze_concept() method.
+        When use_ice=True, it uses the ICE-Centric engine for enhanced processing.
+
         Args:
             text: Text to analyze
-        
+            context: Context string (e.g., 'biblical', 'educational', 'business')
+            use_ice: Whether to use ICE-Centric processing (default: False for backward compatibility)
+            thought_type: Optional thought type for ICE processing (will be inferred if not provided)
+
         Returns:
-            Sacred geometry analysis results
+            BiblicalCoordinates if use_ice=False, ICETransformationResult if use_ice=True
+
+        Example:
+            >>> engine = BiblicalSemanticSubstrate()
+            >>> # Traditional analysis
+            >>> coords = engine.analyze_concept_enhanced("wisdom", "biblical", use_ice=False)
+            >>> print(coords)
+            >>> # ICE-Centric analysis
+            >>> result = engine.analyze_concept_enhanced("wisdom", "biblical", use_ice=True)
+            >>> print(result.execution_strategy)
         """
-        if not PHI_ENGINE_AVAILABLE:
-            return {"error": "Phi-geometric engine not available"}
+        if use_ice and ICE_AVAILABLE:
+            # Map context string to ContextDomain enum
+            context_domain = map_context_to_domain(context)
+
+            # Use ICE-Centric processing
+            return self.analyze_concept_ice(text, thought_type, context_domain)
+        else:
+            # Use traditional processing
+            return self.analyze_concept(text, context)
+
+    def get_ice_engine(self) -> Optional['ICESemanticSubstrateEngine']:
+        """
+        Get the ICE-Centric engine instance
+
+        Returns:
+            ICESemanticSubstrateEngine if available, None otherwise
+
+        Example:
+            >>> engine = BiblicalSemanticSubstrate()
+            >>> ice = engine.get_ice_engine()
+            >>> if ice:
+            ...     print(f"ICE engine available: {ice}")
+        """
+        if not ICE_AVAILABLE:
+            return None
+
+        # Lazy initialization
+        if self._ice_engine is None:
+            self._ice_engine = ICESemanticSubstrateEngine()
+
+        return self._ice_engine
+
+    def is_ice_available(self) -> bool:
+        """
+        Check if ICE-Centric engine is available
+
+        Returns:
+            True if ICE engine can be used, False otherwise
+
+        Example:
+            >>> engine = BiblicalSemanticSubstrate()
+            >>> if engine.is_ice_available():
+            ...     result = engine.analyze_concept_ice("wisdom")
+        """
+        return ICE_AVAILABLE
+
+    # ============================================================================
+    # END ICE-CENTRIC INTEGRATION METHODS
+    # ============================================================================
+
+    def analyze_biblical_text(self, biblical_text: str, context: str = "biblical") -> Dict[str, Any]:
+        """
+        Analyze biblical text with comprehensive semantic analysis
+        """
+        text_obj = BiblicalText(biblical_text)
+        coordinates = self.analyze_concept(biblical_text, context)
+
+        # Biblical concept analysis
+        biblical_concepts = {}
+        for concept in text_obj.concepts:
+            concept_coords = self.analyze_concept(concept, context)
+            biblical_concepts[concept] = {
+                'coordinates': concept_coords,
+                'biblical_relevance': concept_coords.divine_resonance(),
+                'deficiency': concept_coords.get_deficient_attributes()
+            }
         
-        coords = self.analyze_concept(text, "sacred_geometry")
+        # Biblical wisdom principle alignment
+        principle_alignment = {}
+        for principle in BiblicalPrinciple:
+            principle_data = self.biblical_database.wisdom_principles.get(principle)
+            if principle_data:
+                principle_coords = principle_data['coordinates']
+                alignment_score = self._calculate_alignment_score(coordinates, principle_coords)
+                principle_alignment[principle.value] = {
+                    'coordinates': principle_coords,
+                    'weight': principle_data['weight'],
+                    'alignment': alignment_score,
+                    'application': principle_data['application']
+                }
+        
+        # Biblical verse references
+        verse_references = []
+        for ref_key, ref_obj in self.biblical_database.references.items():
+            # Simple text matching for now
+            if any(word.lower() in biblical_text.lower() for word in ref_obj.text.split()):
+                verse_references.append({
+                    'reference': ref_key,
+                    'book': ref_obj.book,
+                    'chapter': ref_obj.chapter,
+                    'verse': ref_obj.verse,
+                    'text': ref_obj.text
+                })
         
         return {
-            "concept": text,
-            "coordinates": coords.to_tuple(),
-            "phi_resonance": coords.phi_resonance,
-            "fibonacci_stage": coords.fibonacci_stage,
-            "sacred_geometry_score": coords.sacred_geometry_score,
-            "anchor_proximities": coords.anchor_proximities,
-            "nearest_anchor": max(coords.anchor_proximities.items(), key=lambda x: x[1])[0] if coords.anchor_proximities else None,
-            "golden_spiral_radius": coords.golden_spiral_radius,
-            "divine_resonance": coords.divine_resonance(),
-            "biblical_balance": coords.biblical_balance(),
-            "overall_alignment": coords.overall_biblical_alignment()
+            'text': biblical_text,
+            'context': context,
+            'coordinates': coordinates,
+            'biblical_concepts': biblical_concepts,
+            'principle_alignment': principle_alignment,
+            'verse_references': verse_references,
+            'divine_resonance': coordinates.divine_resonance(),
+            'biblical_balance': coordinates.biblical_balance(),
+            'dominant_attribute': coordinates.get_dominant_attribute(),
+            'deficient_attributes': coordinates.get_deficient_attributes(),
+            'overall_alignment': coordinates.overall_biblical_alignment(),
+            'biblical_relevance': coordinates.divine_resonance() * (1.0 - coordinates.distance_from_jehovah() / 2.0)
+        }
+    
+    def _calculate_alignment_score(self, coords1: BiblicalCoordinates, coords2: BiblicalCoordinates) -> float:
+        """
+        Calculate alignment score between two sets of coordinates
+        """
+        # Distance-based alignment
+        distance = math.sqrt(
+            (coords1.love - coords2.love) ** 2 +
+            (coords1.power - coords2.power) ** 2 +
+            (coords1.wisdom - coords2.wisdom) ** 2 +
+            (coords1.justice - coords2.justice) ** 2
+        )
+        max_distance = math.sqrt(4)  # Maximum distance from (0,0,0,0) to (1,1,1,1)
+        return 1.0 - (distance / max_distance)
+
+    def analyze_secular_concept(self, secular_text: str, context: str = "general") -> Dict[str, Any]:
+        """
+        Analyze secular text with biblical principles
+        """
+        # Get baseline coordinates
+        coordinates = self.analyze_concept(secular_text, context)
+
+        # Biblical integration analysis
+        biblical_analysis = {
+            'can_be_biblically_interpreted': coordinates.divine_resonance() > 0.3,
+            'biblical_applications': self._find_applications(secular_text),
+            'wisdom_principles_identified': self._identify_wisdom_principles(secular_text),
+            'biblical_alignment_gaps': coordinates.get_deficient_attributes(),
+            'secular_biblical_bridge': self._find_secular_biblical_bridges(secular_text)
+        }
+        
+        # Add biblical recommendations
+        recommendations = self._generate_biblical_recommendations(coordinates, secular_text, biblical_analysis)
+        
+        return {
+            'text': secular_text,
+            'context': context,
+            'coordinates': coordinates,
+            'biblical_analysis': biblical_analysis,
+            'recommendations': recommendations,
+            'divine_resonance': coordinates.divine_resonance(),
+            'biblical_balance': coordinates.biblical_balance(),
+            'dominant_attribute': coordinates.get_dominant_attribute(),
+            'deficient_attributes': coordinates.get_deficient_attributes(),
+            'overall_alignment': coordinates.overall_biblical_alignment(),
+            'secular_biblical_compatibility': self._assess_secular_biblical_compatibility(coordinates, secular_text)
+        }
+    
+    def _find_applications(self, text: str) -> List[str]:
+        """Find potential biblical applications for secular text"""
+        applications = []
+
+        text_lower = text.lower()
+
+        # Biblical application patterns
+        if 'business' in text_lower or 'work' in text_lower:
+            applications.append('Apply Colossians 3:23 - Work as unto the Lord')
+            applications.append('Apply Proverbs 22:29 - Diligent work brings wealth')
+
+        if 'relationship' in text_lower or 'family' in text_lower:
+            applications.append('Apply Ephesians 5:22-25 - Family relationships')
+            applications.append('Apply Colossians 3:20-21 - Family roles')
+
+        if 'decision' in text_lower or 'choice' in text_lower:
+            applications.append('Apply James 1:5 - Ask for wisdom in decisions')
+            applications.append('Apply Proverbs 3:5-6 - Trust in decisions')
+
+        if 'conflict' in text_lower or 'dispute' in text_lower:
+            applications.append('Apply Matthew 18:15-17 - Biblical conflict resolution')
+            applications.append('Apply Romans 12:18 - Live peacefully with all')
+
+        if 'money' in text_lower or 'finance' in text_lower:
+            applications.append('Apply Matthew 6:24 - Cannot serve both God and money')
+            applications.append('Apply Proverbs 11:28 - Wealth does not endure')
+
+        return applications
+    
+    def _identify_wisdom_principles(self, text: str) -> List[str]:
+        """Identify biblical wisdom principles present in text"""
+        text_lower = text.lower()
+        identified = []
+        
+        for principle in BiblicalPrinciple:
+            principle_data = self.biblical_database.wisdom_principles.get(principle)
+            if principle_data:
+                if principle_data['description'].lower() in text_lower:
+                    identified.append(principle.value)
+
+        return identified
+    
+    def _find_secular_biblical_bridges(self, text: str) -> List[str]:
+        """Find bridges between secular concepts and biblical principles"""
+        bridges = []
+        text_lower = text.lower()
+
+        # Common secular-biblical bridges
+        bridge_patterns = {
+            'integrity': 'Biblical integrity and honesty in all dealings',
+            'excellence': 'Biblical excellence as standard for all work',
+            'service': 'Biblical service to others as serving Christ',
+            'leadership': 'Biblical servant leadership following Christ\'s example',
+            'community': 'Biblical community as body of Christ',
+            'purpose': 'Biblical purpose in all endeavors',
+            'responsibility': 'Biblical stewardship of gifts'
         }
 
-# Create global instance for backward compatibility
-biblical_substrate = PhiEnhancedBiblicalSemanticSubstrate()
+        for secular, biblical in bridge_patterns.items():
+            if secular in text_lower:
+                bridges.append(f"{secular.title()} → {biblical}")
 
-# Legacy compatibility functions
-def analyze_concept(text: str, context: str = "biblical") -> PhiEnhancedBiblicalCoordinates:
-    """Legacy compatibility function"""
-    return biblical_substrate.analyze_concept(text, context)
+        return bridges
+    
+    def _generate_biblical_recommendations(self, coordinates: BiblicalCoordinates, text: str,
+                                      biblical_analysis: Dict) -> List[str]:
+        """Generate biblical recommendations based on analysis"""
+        recommendations = []
 
-def get_sacred_number_meaning(number: int) -> Dict[str, Any]:
-    """Get phi-enhanced sacred number meaning"""
-    if number in biblical_substrate.sacred_numbers_db:
-        return biblical_substrate.sacred_numbers_db[number].get_phi_enhanced_meaning()
-    return {"value": number, "is_sacred": False, "sacred_resonance": 0.0}
+        # General biblical recommendations
+        if biblical_analysis['can_be_biblically_interpreted']:
+            recommendations.append("Consider this concept through biblical wisdom principles")
 
-if __name__ == "__main__":
-    print("="*80)
-    print("PHI-ENHANCED BIBLICAL SEMANTIC SUBSTRATE")
-    print("Golden Ratio Mathematics + Sacred Biblical Analysis")
-    print("="*80)
-    
-    # Demonstrate phi-enhanced analysis
-    test_concepts = [
-        "divine love and eternal wisdom",
-        "sacred geometry and golden ratio",
-        "biblical justice and mercy",
-        "the perfection of holy trinity"
-    ]
-    
-    for concept in test_concepts:
-        print(f"\nAnalyzing: '{concept}'")
-        coords = biblical_substrate.analyze_concept(concept)
-        sacred_geom = biblical_substrate.analyze_sacred_geometry_alignment(concept)
-        
-        print(f"  Biblical Coordinates: L={coords.love:.3f}, P={coords.power:.3f}, W={coords.wisdom:.3f}, J={coords.justice:.3f}")
-        print(f"  Phi Resonance: {coords.phi_resonance:.3f}")
-        print(f"  Sacred Geometry Score: {coords.sacred_geometry_score:.3f}")
-        print(f"  Fibonacci Stage: {coords.fibonacci_stage}")
-        print(f"  Divine Resonance: {coords.divine_resonance():.3f}")
-        print(f"  Overall Alignment: {coords.overall_biblical_alignment():.3f}")
-    
-    # Demonstrate sacred number analysis
-    print(f"\nSacred Number Analysis:")
-    for number in [3, 7, 12, 21, 40, 777]:
-        meaning = get_sacred_number_meaning(number)
-        print(f"  {number}: Sacred={meaning['is_sacred']}, Fibonacci={meaning['is_fibonacci']}, "
-              f"Resonance={meaning['sacred_resonance']:.3f}")
-    
-    print(f"\n{'='*80}")
-    print("PHI-ENHANCED BIBLICAL SUBSTRATE - FULLY OPERATIONAL")
-    print("="*80)
+        # Specific recommendations based on attributes
+        if coordinates.love < 0.3:
+            recommendations.append("Meditate on God's love (1 John 4:8)")
+            recommendations.append("Practice biblical love (1 Corinthians 13)")
+
+        if coordinates.power < 0.3:
+            recommendations.append("Trust in God's sovereignty (Psalm 62:11)")
+            recommendations.append("Seek God's strength (Philippians 4:13)")
+
+        if coordinates.wisdom < 0.3:
+            recommendations.append("Study biblical wisdom (Proverbs 9:10)")
+            recommendations.append("Ask God for wisdom (James 1:5)")
+
+        if coordinates.justice < 0.3:
+            recommendations.append("Practice biblical justice (Micah 6:8)")
+            recommendations.append("Pursue righteousness (Matthew 6:33)")
+
+        # Recommendations based on deficient attributes
+        for attribute in coordinates.get_deficient_attributes():
+            recommendations.append(f"Enhance biblical {attribute}")
+
+        return recommendations
+
+    def _assess_secular_biblical_compatibility(self, coordinates: BiblicalCoordinates, text: str) -> float:
+        """
+        Assess how well secular text aligns with biblical principles
+        """
+        compatibility_score = coordinates.overall_biblical_alignment()
+
+        # Check if text opposes biblical principles
+        text_lower = text.lower()
+        anti_biblical_keywords = ['atheist', 'atheism', 'anti-christian', 'anti-religious']
+        for keyword in anti_biblical_keywords:
+            if keyword in text_lower:
+                compatibility_score *= 0.5
+
+        # Check for positive biblical alignment indicators
+        biblical_positive = ['christian', 'bible', 'scripture', 'faith', 'godly', 'christian', 'jesus']
+        for keyword in biblical_positive:
+            if keyword in text_lower:
+                compatibility_score = min(1.0, compatibility_score + 0.2)
+
+        return compatibility_score
+
+# Export main classes and functions
+__all__ = [
+    'BiblicalSemanticSubstrate',
+    'BiblicalCoordinates',
+    'BiblicalText',
+    'BiblicalReference',
+    'BiblicalWisdomDatabase',
+    'BiblicalPrinciple',
+    'BiblicalSemanticEngine'
+]
