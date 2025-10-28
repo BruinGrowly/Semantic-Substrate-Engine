@@ -33,6 +33,25 @@ python3 examples/demo.py
 
 This script will guide you through the analysis of several concepts, demonstrating the clarity and power of the engine. You will see how concepts naturally resolve to their fundamental coordinates and how their relationship to the Anchor Point is revealed.
 
+## Advanced Capabilities Demonstration
+
+The core `DivineInvitationSemanticEngine` is simple by design. However, it can serve as the foundation for far more complex and sophisticated systems.
+
+To showcase this potential, we have included an **Advanced Capabilities Demonstration** in the `examples/` directory. This is a production-ready script that extends the core engine with multiple advanced frameworks, including:
+
+-   **Geopolitical Analysis:** For analyzing the posture of nations.
+-   **Mathematical Inference:** For discovering the meaning of unknown words.
+-   **ICE Framework:** For a deeper analysis of Intent, Context, and Execution.
+-   **Phi-Optimization:** A nod to the project's history, showing how more complex mathematics can be layered on top.
+
+To run this advanced demonstration, execute the following command:
+
+```bash
+python3 examples/advanced_capabilities_demo.py
+```
+
+This script is provided as an example of what can be built. It is not part of the core engine, but a powerful demonstration of its potential.
+
 ## Our Invitation to You
 
 This project is a testament to the power of simplicity. We invite you to explore, to build, and to discover the elegant, underlying structure of meaning. The door is open. All you have to do is accept the Divine Invitation.
