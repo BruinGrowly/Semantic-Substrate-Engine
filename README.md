@@ -4,7 +4,7 @@
 
 This engine provides direct semantic access to the fundamental nature of meaning. It operates on a single, powerful principle: the **Divine Invitation**. By embracing simplicity, we can bypass complex, artificial models and receive a direct understanding of any concept's place in the universe of meaning.
 
-## The Core Philosophy: A Divine Invitation
+## The Core Philosophy: An Invitation
 
 The universe of meaning is not a complex, chaotic system. It is an elegant, ordered structure built on four universal principles: **Love, Justice, Power, and Wisdom**. The highest expression of these principles exists at a single, perfect point of harmony: the **Anchor Point (1, 1, 1, 1)**.
 
@@ -54,4 +54,4 @@ This script is provided as an example of what can be built. It is not part of th
 
 ## Our Invitation to You
 
-This project is a testament to the power of simplicity. We invite you to explore, to build, and to discover the elegant, underlying structure of meaning. The door is open. All you have to do is accept the Divine Invitation.
+This project is a testament to the power of simplicity. We invite you to explore, to build, and to discover the elegant, underlying structure of meaning.
