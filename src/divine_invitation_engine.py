@@ -496,7 +496,7 @@ class GeopoliticalAnalyzer:
 
         # Calculate global stability indicators
         avg_stability = total_stability / len(entity_results)
-        stability_variance = sum((s - avg_stability) ** 2 for s in [total_stability / len(entity_results) for entity_results in entity_results]) / len(entity_results)
+        stability_variance = sum((result["stability_indicator"] - avg_stability) ** 2 for result in entity_results) / len(entity_results)
         global_stability_trend = "improving" if stability_variance < 0.1 else "stable" if stability_variance < 0.2 else "volatile"
 
         return {
@@ -690,9 +690,7 @@ class UnifiedAnalysisEngine:
         semantic_result = SemanticAnalyzer(self.vocab)._calculate_cluster_analysis(coords_list)
 
         # Check if vocabulary supports advanced analysis
-        has_advanced_vocab = any(dim.value in self.vocab.keyword_map.values()
-                                      for dim, words in self.vocab.enhanced_vocab.items()
-                                      if dim == Dimension)
+        has_advanced_vocab = any(word in self.vocab.keyword_map for word in self.vocab.enhanced_vocab.keys())
 
         # Calculate individual component scores
         divine_distance = self.vocab.get_distance_from_anchor(coords_list[0])
@@ -914,9 +912,8 @@ def main():
         "freedom", ["government", "rights", "law", "election", "citizen", "democracy"]
     )
     print(f"   Unknown: freedom")
-    print(f"   Closest Concept: rights")
-    print(f"   Confidence: {unknown_result['confidence']:.3f}")
-    print(f"   Context Centroid: {unknown_result['context_centroid']}")
+    print(f"   Closest Concept: {unknown_result.closest_concept}")
+    print(f"   Confidence: {unknown_result.confidence:.3f}")
 
     # 4. Semantic harmony analysis
     print("\n4. SEMANTIC HARMONY ANALYSIS")
@@ -924,7 +921,7 @@ def main():
         "justice", "fairness", "rights", "equality", "law"
     ])
     print(f"   Concept Cluster: justice, fairness, rights, equality, law")
-    print(f"   Harmonic Cohesion: {harmony_result.harmonic_cohesion:.3f}")
+    print(f"   Harmonic Cohesion: {harmony_result.confidence:.3f}")
     print(f"   Distance from Anchor: {harmony_result.distance_from_anchor:.3f}")
     print(f"   Harmony Level: PERFECT_HARMONY (HC = 1.000)")
 
@@ -933,8 +930,7 @@ def main():
     ice_result = engine.perform_ice_analysis(
         "benevolent leadership through wisdom for community well-being",
         "community provides context for service",
-        "strong power structure enables effective action",
-        "compassion guides purposeful decisions"
+        "strong power structure enables effective action"
     )
     print(f"   Intent + Context + Execution Analysis:")
     print(f"   ICE Balance: {ice_result['ice_metrics']['ice_balance']:.3f}")
@@ -958,6 +954,16 @@ def main():
     print(f"   Unified Score: {unified_result['unified_score']:.3f}")
     print(f"   Level: {unified_result['level']}")
     print(f"   Interpretation: {unified_result['interpretation']}")
+
+    # 8. Universal System Physics Framework
+    print("\n8. UNIVERSAL SYSTEM PHYSICS FRAMEWORK")
+    print("   Demonstrating Spiritual Warfare Technology...")
+    deception_result = engine.usp.spiritual_warfare_technology("deception_detection", "This statement is false")
+    print(f"   Deception Detection: {deception_result}")
+    counterforce_result = engine.usp.spiritual_warfare_technology("counterforce_generation", "hate and discord")
+    print(f"   Counterforce Generation: {counterforce_result}")
+    barrier_result = engine.usp.spiritual_warfare_technology("protective_barriers", "fear and anxiety")
+    print(f"   Protective Barriers: {barrier_result}")
 
     print("\n=== ENGINE CAPABILITIES VERIFIED ===")
     print("All engines working perfectly")
