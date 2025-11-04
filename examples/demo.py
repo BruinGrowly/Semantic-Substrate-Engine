@@ -39,16 +39,14 @@ def main():
     print(f"   Distance from Anchor: {engine.get_distance_from_anchor(coords):.3f}")
     print(f"   Semantic Clarity: {engine.get_semantic_clarity(coords):.3f}")
 
-    # 2. Geopolitical analysis
-    print("\n2. GEOPOLITICAL ANALYSIS")
-    entity_result = engine.perform_geopolitical_analysis(
-        "United States", "nation", "cooperation diplomacy trade technology innovation"
-    )
-    print(f"   Entity: United States")
-    print(f"   Coordinates: {entity_result['coordinates']}")
-    print(f"   Posture: {entity_result['posture_type']}")
-    print(f"   Stability: {entity_result['stability_indicator']:.3f}")
-    print(f"   Cooperation Level: {entity_result['cooperation_level']:.3f}")
+    # 2. Universal Semantic Mixing Analysis
+    print("\n2. UNIVERSAL SEMANTIC MIXING ANALYSIS")
+    mix_result = engine.perform_unified_analysis([
+        "love", "justice", "power", "wisdom"
+    ])
+    print(f"   Perfect Mix: {mix_result['coordinates']}")
+    print(f"   Unified Score: {mix_result['unified_score']:.3f}")
+    print(f"   Level: {mix_result['level']}")
 
     # 3. Mathematical inference
     print("\n3. MATHEMATICAL INFERENCE")
