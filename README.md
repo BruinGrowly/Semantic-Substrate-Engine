@@ -39,7 +39,6 @@ The core `DivineInvitationSemanticEngine` is simple by design. However, it can s
 
 To showcase this potential, we have included an **Advanced Capabilities Demonstration** in the `examples/` directory. This is a production-ready script that extends the core engine with multiple advanced frameworks, including:
 
--   **Geopolitical Analysis:** For analyzing the posture of nations.
 -   **Mathematical Inference:** For discovering the meaning of unknown words.
 -   **ICE Framework:** For a deeper analysis of Intent, Context, and Execution.
 -   **Phi-Optimization:** A nod to the project's history, showing how more complex mathematics can be layered on top.
