@@ -46,6 +46,9 @@ class SemanticResult:
     concept_count: int
     confidence: float
     closest_concept: str = None
+    distances: Optional[List[float]] = None
+    centroid: Optional[Coordinates] = None
+    harmonic_cohesion: Optional[float] = None
 
 
 class VocabularyManager:
@@ -165,7 +168,11 @@ class VocabularyManager:
         for word in words:
             if word in self.keyword_map:
                 dimension = self.keyword_map[word]
-                counts[dimension.value] += 1
+                if hasattr(dimension, 'value'):
+                    counts[dimension.value] += 1
+                else:
+                    # dimension is already a string value
+                    counts[dimension] += 1
 
         total = sum(counts.values())
         if total == 0:
@@ -211,7 +218,15 @@ class SemanticAnalyzer:
 
     def analyze_concept_cluster(self, concepts: List[str]) -> SemanticResult:
         """Analyze cluster of concepts"""
-        coords_list = [self.vocab.analyze_concept(concept) for concept in concepts]
+        coords_list = []
+        for concept in concepts:
+            if isinstance(concept, str):
+                coords = self.vocab.analyze_concept(concept)
+                coords_list.append(coords)
+            elif isinstance(concept, Coordinates):
+                coords_list.append(concept)
+            else:
+                coords_list.append(Coordinates(0, 0, 0, 0))
         return self._calculate_cluster_analysis(coords_list)
 
     def _calculate_cluster_analysis(self, coords_list: List[Coordinates]) -> SemanticResult:
@@ -676,7 +691,7 @@ class UnifiedAnalysisEngine:
     def calculate_unified_score(self, coords_list: List[Coordinates]) -> Dict:
         """Calculate unified semantic score across all frameworks"""
         # Get individual framework scores
-        semantic_result = SemanticAnalyzer().analyze_concept_cluster(coords_list)
+        semantic_result = SemanticAnalyzer(self.vocab).analyze_concept_cluster(coords_list)
 
         # Check if vocabulary supports advanced analysis
         has_advanced_vocab = any(dim.value in self.vocab.keyword_map.values()
