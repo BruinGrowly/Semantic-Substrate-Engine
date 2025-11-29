@@ -209,7 +209,8 @@ class DynamicLJPWv4:
         return np.array([dL_dt, dJ_dt, dP_dt, dW_dt])
     
     def simulate(self, initial_state: Tuple[float, float, float, float], 
-                 duration: float, dt: float = 0.01) -> Dict[str, List[float]]:
+                 duration: float, dt: float = 0.01, 
+                 bounded: bool = True) -> Dict[str, List[float]]:
         """
         Simulate the semantic state evolution using RK4 integration.
         
@@ -217,6 +218,9 @@ class DynamicLJPWv4:
             initial_state: Starting (L, J, P, W) coordinates
             duration: Total simulation time
             dt: Time step (default 0.01)
+            bounded: If True, clamp values to [0, 1] range (default True).
+                     The Anchor Point (1,1,1,1) represents Divine Perfection,
+                     so bounded mode keeps the system within the semantic hypercube.
             
         Returns:
             Dictionary with time series for t, L, J, P, W, and H (harmony)
@@ -244,6 +248,10 @@ class DynamicLJPWv4:
             # Ensure non-negative values
             state = np.maximum(state, 0)
             
+            # Optional: Clamp to [0, 1] semantic hypercube
+            if bounded:
+                state = np.minimum(state, 1.0)
+            
             # Record History
             t = (i + 1) * dt
             L, J, P, W = state
@@ -259,13 +267,14 @@ class DynamicLJPWv4:
         return history
     
     def get_equilibrium_state(self, initial_state: Tuple[float, float, float, float],
-                               duration: float = 100.0, dt: float = 0.01) -> Tuple[float, float, float, float]:
+                               duration: float = 100.0, dt: float = 0.01,
+                               bounded: bool = True) -> Tuple[float, float, float, float]:
         """
         Find the equilibrium state by running simulation until convergence.
         
         Returns the final (L, J, P, W) state after the system settles.
         """
-        history = self.simulate(initial_state, duration, dt)
+        history = self.simulate(initial_state, duration, dt, bounded=bounded)
         return (history["L"][-1], history["J"][-1], history["P"][-1], history["W"][-1])
 
 
@@ -986,7 +995,8 @@ class DivineInvitationSemanticEngine:
         )
     
     def simulate_semantic_dynamics(self, initial_state: Tuple[float, float, float, float],
-                                    duration: float = 10.0, dt: float = 0.01) -> Dict[str, List[float]]:
+                                    duration: float = 10.0, dt: float = 0.01,
+                                    bounded: bool = True) -> Dict[str, List[float]]:
         """
         Simulate the semantic state evolution using the Dynamic LJPW v4 Engine.
         
@@ -997,20 +1007,22 @@ class DivineInvitationSemanticEngine:
             initial_state: Starting (L, J, P, W) coordinates
             duration: Total simulation time
             dt: Time step (default 0.01)
+            bounded: If True, clamp values to [0, 1] semantic hypercube (default True)
             
         Returns:
             Dictionary with time series for t, L, J, P, W, and H (harmony)
         """
-        return self.dynamic_engine.simulate(initial_state, duration, dt)
+        return self.dynamic_engine.simulate(initial_state, duration, dt, bounded=bounded)
     
     def get_equilibrium_state(self, initial_state: Tuple[float, float, float, float],
-                               duration: float = 100.0) -> Tuple[float, float, float, float]:
+                               duration: float = 100.0,
+                               bounded: bool = True) -> Tuple[float, float, float, float]:
         """
         Find the equilibrium state from a given initial condition.
         
         Uses the Dynamic LJPW v4 Engine to simulate until convergence.
         """
-        return self.dynamic_engine.get_equilibrium_state(initial_state, duration)
+        return self.dynamic_engine.get_equilibrium_state(initial_state, duration, bounded=bounded)
     
     def analyze_with_dynamics(self, concept: str, duration: float = 10.0) -> Dict:
         """
