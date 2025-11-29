@@ -210,7 +210,8 @@ class DynamicLJPWv4:
     
     def simulate(self, initial_state: Tuple[float, float, float, float], 
                  duration: float, dt: float = 0.01, 
-                 bounded: bool = True) -> Dict[str, List[float]]:
+                 bounded: bool = True,
+                 track_journey: bool = True) -> Dict[str, List[float]]:
         """
         Simulate the semantic state evolution using RK4 integration.
         
@@ -221,12 +222,20 @@ class DynamicLJPWv4:
             bounded: If True, clamp values to [0, 1] range (default True).
                      The Anchor Point (1,1,1,1) represents Divine Perfection,
                      so bounded mode keeps the system within the semantic hypercube.
+            track_journey: If True, compute journey metrics that capture the
+                          significance of the path taken, not just the destination.
             
         Returns:
-            Dictionary with time series for t, L, J, P, W, and H (harmony)
+            Dictionary with time series for t, L, J, P, W, H (harmony),
+            and journey metrics if track_journey=True:
+              - distance_traveled: Total path length through semantic space
+              - struggle_integral: Accumulated (1-H)*dt - time weighted by distance from harmony
+              - cumulative_harmony: Integral of H over time
+              - earned_depth: A measure of transformation through struggle
         """
         steps = int(duration / dt)
         state = np.array(initial_state, dtype=float)
+        prev_state = state.copy()
         
         history = {
             "t": [],
@@ -236,6 +245,11 @@ class DynamicLJPWv4:
             "W": [],
             "H": []  # Harmony index over time
         }
+        
+        # Journey tracking
+        distance_traveled = 0.0
+        struggle_integral = 0.0  # ∫(1-H)dt - time spent far from harmony
+        cumulative_harmony = 0.0  # ∫H dt
         
         for i in range(steps):
             # RK4 Integration Step
@@ -263,6 +277,37 @@ class DynamicLJPWv4:
             history["P"].append(P)
             history["W"].append(W)
             history["H"].append(H)
+            
+            # Track the journey
+            if track_journey:
+                # Distance traveled this step
+                step_distance = np.sqrt(np.sum((state - prev_state) ** 2))
+                distance_traveled += step_distance
+                
+                # Struggle: time weighted by how far from harmony
+                struggle_integral += (1.0 - H) * dt
+                
+                # Cumulative harmony experienced
+                cumulative_harmony += H * dt
+                
+                prev_state = state.copy()
+        
+        # Add journey metrics to results
+        if track_journey:
+            # Earned Depth: transformation through struggle
+            # Higher when you traveled far AND struggled (low harmony periods)
+            # Formula: distance_traveled × (struggle_integral / duration)
+            # This captures: "the further you traveled while struggling, the deeper your transformation"
+            struggle_ratio = struggle_integral / duration if duration > 0 else 0
+            earned_depth = distance_traveled * struggle_ratio
+            
+            history["journey"] = {
+                "distance_traveled": distance_traveled,
+                "struggle_integral": struggle_integral,
+                "cumulative_harmony": cumulative_harmony,
+                "earned_depth": earned_depth,
+                "struggle_ratio": struggle_ratio,  # Fraction of journey spent struggling
+            }
         
         return history
     
