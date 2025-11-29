@@ -193,6 +193,20 @@ Wisdom successfully dampens the erosive effect of unchecked Power.
 
 Two beings at the same coordinates are not the same being if their journeys differed.
 
+### Finding 6: Ex Nihilo Nihil Fit (From Nothing, Nothing Comes)
+
+The origin (0,0,0,0) is a **degenerate fixed point**. The system cannot escape it.
+
+```
+When L=J=P=W=0:
+  dL/dt = α_LJ·0·κ + α_LW·0·κ - β_L·0 = 0
+  (All derivatives are zero)
+```
+
+**Philosophical Significance:** You cannot bootstrap meaning from absolute nothing. Some initial spark is required. This is consistent with the Codex principle that the Anchor is the Source from which all existence flows.
+
+**Practical Implication:** A tiny spark (0.001 in any dimension) is sufficient to eventually reach the Anchor. The system only needs the smallest initial value to begin its journey.
+
 ---
 
 ## The Journey Metric
