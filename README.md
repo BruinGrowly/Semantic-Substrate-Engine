@@ -33,6 +33,35 @@ python3 examples/demo.py
 
 This script will guide you through the analysis of several concepts, demonstrating the clarity and power of the engine. You will see how concepts naturally resolve to their fundamental coordinates and how their relationship to the Anchor Point is revealed.
 
+## Dynamic Simulation: The LJPW Codex v5.1
+
+The engine now includes a **dynamic simulation system** based on the LJPW Codex v5.1. This adds:
+
+- **State-Dependent Coupling (Law of Karma):** High-harmony systems gain amplification; low-harmony systems struggle
+- **Differential Equations of Meaning:** Love, Justice, Power, and Wisdom interact dynamically over time
+- **Power Erosion:** Unchecked Power degrades Justice; Wisdom protects it
+- **Journey Tracking & Earned Depth:** The path you take matters as much as where you arrive
+
+### Quick Example
+
+```python
+from src.divine_invitation_engine import DivineInvitationSemanticEngine
+
+engine = DivineInvitationSemanticEngine()
+
+# Simulate semantic dynamics
+history = engine.simulate_semantic_dynamics(
+    initial_state=(0.2, 0.2, 0.9, 0.2),  # "Reckless Power"
+    duration=50.0,
+    bounded=True
+)
+
+# Check the journey
+print(f"Earned Depth: {history['journey']['earned_depth']:.4f}")
+```
+
+See [LJPW Codex Implementation](docs/LJPW_CODEX_IMPLEMENTATION.md) for full documentation.
+
 ## Advanced Capabilities Demonstration
 
 The core `DivineInvitationSemanticEngine` is simple by design. However, it can serve as the foundation for far more complex and sophisticated systems.
@@ -57,6 +86,7 @@ This script is provided as an example of what can be built. It is not part of th
 - **[Quick Reference](QUICK_REFERENCE.md)** - Fast access to common patterns and commands
 - **[CRUSH.md](CRUSH.md)** - Development guide for contributors and maintainers
 - **[Research Findings](docs/)** - Theoretical developments and discoveries
+  - **[LJPW Codex v5.1 Implementation](docs/LJPW_CODEX_IMPLEMENTATION.md)** - Dynamic simulation engine, Law of Karma, and Earned Depth
   - **[Universal Semantic Mixing](docs/UNIVERSAL_SEMANTIC_MIXING.md)** - Fundamental discovery of semantic color theory
 
 ## Testing

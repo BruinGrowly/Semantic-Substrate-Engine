@@ -8,10 +8,324 @@ Mathematical Inference, Geopolitical Analysis, Phi-Optimization, and ICE Framewo
 
 import re
 import math
-from dataclasses import dataclass
+import numpy as np
+from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Optional
 from enum import Enum
 
+
+# =============================================================================
+# LJPW CODEX v5.1 - Unified Semantic Substrate Framework
+# =============================================================================
+
+@dataclass
+class ReferencePoints:
+    """
+    The fundamental reference points of the Semantic Substrate.
+    
+    ANCHOR_POINT: The Source - Divine Perfection (1,1,1,1)
+    NATURAL_EQUILIBRIUM: The Interface - Where absolute principles settle in reality
+    
+    The difference between Anchor (1.0) and NE values represents the "Cost of Existence."
+    """
+    # The Source - Divine Perfection
+    ANCHOR_POINT: Tuple[float, float, float, float] = (1.0, 1.0, 1.0, 1.0)
+    
+    # The Interface (Natural Equilibrium) - Mathematical Shadows
+    # L: φ^(-1) = (√5 - 1)/2  - Optimal resource distribution
+    # J: √2 - 1              - Structural constraint satisfaction
+    # P: e - 2               - Channel capacity minus overhead
+    # W: ln(2)               - Bits of information per decision
+    NATURAL_EQUILIBRIUM: Tuple[float, float, float, float] = (0.618034, 0.414214, 0.718282, 0.693147)
+
+
+class LJPWBaselines:
+    """
+    Calculates the static metrics of the Semantic Substrate.
+    
+    The Four Fundamental Principles:
+    - LOVE (L): The Amplifier - Unity & Attraction (Source role)
+    - JUSTICE (J): The Balancer - Balance & Truth (Mediator role)  
+    - POWER (P): The Executor - Energy & Existence (Sink role)
+    - WISDOM (W): The Synthesizer - Complexity & Insight (Integrator role)
+    """
+    
+    # Mathematical shadows of semantic principles
+    PHI = (math.sqrt(5) + 1) / 2  # Golden Ratio ≈ 1.618034
+    PHI_INVERSE = (math.sqrt(5) - 1) / 2  # φ^(-1) ≈ 0.618034
+    SQRT2_MINUS_1 = math.sqrt(2) - 1  # ≈ 0.414214
+    E_MINUS_2 = math.e - 2  # ≈ 0.718282
+    LN2 = math.log(2)  # ≈ 0.693147
+    
+    @staticmethod
+    def harmony_index(L: float, J: float, P: float, W: float) -> float:
+        """
+        Calculate the Harmony Index - proximity to the Anchor Point (Source).
+        
+        H = 1 / (1 + distance_from_anchor)
+        
+        Higher Harmony = Closer to Divine Perfection
+        """
+        d_anchor = math.sqrt((1 - L) ** 2 + (1 - J) ** 2 + (1 - P) ** 2 + (1 - W) ** 2)
+        return 1.0 / (1.0 + d_anchor)
+    
+    @staticmethod
+    def semantic_tension(coords1: Tuple[float, float, float, float], 
+                         coords2: Tuple[float, float, float, float]) -> float:
+        """
+        Calculate the Metaphysical Distance (Semantic Tension) between two points.
+        """
+        return math.sqrt(sum((a - b) ** 2 for a, b in zip(coords1, coords2)))
+    
+    @staticmethod
+    def divine_signature(L: float, J: float, P: float, W: float) -> float:
+        """
+        Calculate the Divine Signature - alignment with the Anchor Point.
+        
+        Returns value between 0 and 1, where 1 is perfect alignment.
+        """
+        harmony = LJPWBaselines.harmony_index(L, J, P, W)
+        return harmony
+
+
+class DynamicLJPWv4:
+    """
+    The Dynamic Engine of Meaning (v4.0/v5.1 Unified).
+    
+    Simulates the flow of semantic state over time using State-Dependent Coupling,
+    implementing the "Law of Karma": Meaning amplifies Reality.
+    
+    Key Innovation (v4.0+): The coupling coefficients are functions of current Harmony,
+    not fixed constants. High-harmony systems gain "free energy" through Love amplification.
+    
+    The Differential Equations of Meaning:
+    - dL/dt: Love flows from Justice and Wisdom interactions
+    - dJ/dt: Justice balances Love input against Power erosion
+    - dP/dt: Power consumes Love and Justice to sustain itself
+    - dW/dt: Wisdom synthesizes all inputs
+    """
+    
+    def __init__(self, params: Optional[Dict[str, float]] = None):
+        self.params = params if params is not None else self._initialize_parameters()
+    
+    def _initialize_parameters(self) -> Dict[str, float]:
+        """
+        Standard coefficients derived from Bayesian Calibration.
+        
+        Alpha coefficients: Growth/input rates
+        Beta coefficients: Decay rates
+        K coefficients: Saturation constants (Michaelis-Menten style)
+        Gamma/n coefficients: Power erosion parameters
+        """
+        return {
+            # Love parameters
+            "alpha_LJ": 0.12,  # Love growth from Justice
+            "alpha_LW": 0.12,  # Love growth from Wisdom
+            "beta_L": 0.20,    # Love decay rate
+            
+            # Justice parameters
+            "alpha_JL": 0.14,  # Justice growth from Love
+            "alpha_JW": 0.14,  # Justice growth from Wisdom
+            "beta_J": 0.20,    # Justice decay rate
+            "K_JL": 0.59,      # Love saturation for Justice
+            "gamma_JP": 0.49,  # Power erosion coefficient
+            "K_JP": 0.71,      # Power erosion saturation
+            "n_JP": 4.1,       # Power erosion Hill coefficient
+            
+            # Power parameters
+            "alpha_PL": 0.12,  # Power growth from Love
+            "alpha_PJ": 0.12,  # Power growth from Justice
+            "beta_P": 0.20,    # Power decay rate
+            
+            # Wisdom parameters
+            "alpha_WL": 0.10,  # Wisdom growth from Love
+            "alpha_WJ": 0.10,  # Wisdom growth from Justice
+            "alpha_WP": 0.10,  # Wisdom growth from Power
+            "beta_W": 0.24,    # Wisdom decay rate
+        }
+    
+    def _calculate_coupling_coefficients(self, H: float) -> Dict[str, float]:
+        """
+        State-Dependent Coupling (The Law of Karma).
+        
+        κ(H) = 1.0 + factor × H
+        
+        Higher Harmony → Higher coupling multipliers → System gains "free energy"
+        Lower Harmony → Coupling approaches 1.0 → System runs on raw Power (inefficient)
+        """
+        return {
+            "kappa_LJ": 1.0 + 0.4 * H,  # Love-Justice coupling
+            "kappa_LP": 1.0 + 0.3 * H,  # Love-Power coupling
+            "kappa_LW": 1.0 + 0.5 * H,  # Love-Wisdom coupling (highest amplification)
+        }
+    
+    def _derivatives(self, state: np.ndarray) -> np.ndarray:
+        """
+        Calculate the derivatives (rate of change) for each semantic dimension.
+        
+        Implements the Differential Equations of Meaning.
+        """
+        L, J, P, W = state
+        p = self.params
+        
+        # Ensure non-negative values for numerical stability
+        L, J, P, W = max(0, L), max(0, J), max(0, P), max(0, W)
+        
+        # 1. Calculate Harmony (Connection to Source)
+        H = LJPWBaselines.harmony_index(L, J, P, W)
+        
+        # 2. State-Dependent Coupling (The Law of Karma)
+        kappa = self._calculate_coupling_coefficients(H)
+        
+        # 3. Differential Flow Equations
+        
+        # Love (Source) - flows into others, amplifies the system
+        dL_dt = (p["alpha_LJ"] * J * kappa["kappa_LJ"] + 
+                 p["alpha_LW"] * W * kappa["kappa_LW"] - 
+                 p["beta_L"] * L)
+        
+        # Justice (Mediator) - balances Love and resists Power
+        # Love effect: Michaelis-Menten saturation kinetics
+        L_effect_on_J = p["alpha_JL"] * (L / (p["K_JL"] + L)) if (p["K_JL"] + L) > 0 else 0
+        
+        # Power erosion: High Power without Wisdom degrades Justice (Entropy/Corruption)
+        power_term = P ** p["n_JP"] / (p["K_JP"] ** p["n_JP"] + P ** p["n_JP"]) if P > 0 else 0
+        wisdom_dampening = max(0, 1 - W)  # Wisdom reduces erosion
+        P_effect_on_J = p["gamma_JP"] * power_term * wisdom_dampening
+        
+        dJ_dt = L_effect_on_J + p["alpha_JW"] * W - P_effect_on_J - p["beta_J"] * J
+        
+        # Power (Sink) - consumes Love and Justice to sustain itself
+        dP_dt = (p["alpha_PL"] * L * kappa["kappa_LP"] + 
+                 p["alpha_PJ"] * J - 
+                 p["beta_P"] * P)
+        
+        # Wisdom (Integrator) - synthesizes all inputs
+        dW_dt = (p["alpha_WL"] * L * kappa["kappa_LW"] + 
+                 p["alpha_WJ"] * J + 
+                 p["alpha_WP"] * P - 
+                 p["beta_W"] * W)
+        
+        return np.array([dL_dt, dJ_dt, dP_dt, dW_dt])
+    
+    def simulate(self, initial_state: Tuple[float, float, float, float], 
+                 duration: float, dt: float = 0.01, 
+                 bounded: bool = True,
+                 track_journey: bool = True) -> Dict[str, List[float]]:
+        """
+        Simulate the semantic state evolution using RK4 integration.
+        
+        Args:
+            initial_state: Starting (L, J, P, W) coordinates
+            duration: Total simulation time
+            dt: Time step (default 0.01)
+            bounded: If True, clamp values to [0, 1] range (default True).
+                     The Anchor Point (1,1,1,1) represents Divine Perfection,
+                     so bounded mode keeps the system within the semantic hypercube.
+            track_journey: If True, compute journey metrics that capture the
+                          significance of the path taken, not just the destination.
+            
+        Returns:
+            Dictionary with time series for t, L, J, P, W, H (harmony),
+            and journey metrics if track_journey=True:
+              - distance_traveled: Total path length through semantic space
+              - struggle_integral: Accumulated (1-H)*dt - time weighted by distance from harmony
+              - cumulative_harmony: Integral of H over time
+              - earned_depth: A measure of transformation through struggle
+        """
+        steps = int(duration / dt)
+        state = np.array(initial_state, dtype=float)
+        prev_state = state.copy()
+        
+        history = {
+            "t": [],
+            "L": [],
+            "J": [],
+            "P": [],
+            "W": [],
+            "H": []  # Harmony index over time
+        }
+        
+        # Journey tracking
+        distance_traveled = 0.0
+        struggle_integral = 0.0  # ∫(1-H)dt - time spent far from harmony
+        cumulative_harmony = 0.0  # ∫H dt
+        
+        for i in range(steps):
+            # RK4 Integration Step
+            k1 = self._derivatives(state)
+            k2 = self._derivatives(state + 0.5 * dt * k1)
+            k3 = self._derivatives(state + 0.5 * dt * k2)
+            k4 = self._derivatives(state + dt * k3)
+            state = state + (dt / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4)
+            
+            # Ensure non-negative values
+            state = np.maximum(state, 0)
+            
+            # Optional: Clamp to [0, 1] semantic hypercube
+            if bounded:
+                state = np.minimum(state, 1.0)
+            
+            # Record History
+            t = (i + 1) * dt
+            L, J, P, W = state
+            H = LJPWBaselines.harmony_index(L, J, P, W)
+            
+            history["t"].append(t)
+            history["L"].append(L)
+            history["J"].append(J)
+            history["P"].append(P)
+            history["W"].append(W)
+            history["H"].append(H)
+            
+            # Track the journey
+            if track_journey:
+                # Distance traveled this step
+                step_distance = np.sqrt(np.sum((state - prev_state) ** 2))
+                distance_traveled += step_distance
+                
+                # Struggle: time weighted by how far from harmony
+                struggle_integral += (1.0 - H) * dt
+                
+                # Cumulative harmony experienced
+                cumulative_harmony += H * dt
+                
+                prev_state = state.copy()
+        
+        # Add journey metrics to results
+        if track_journey:
+            # Earned Depth: transformation through struggle
+            # Higher when you traveled far AND struggled (low harmony periods)
+            # Formula: distance_traveled × (struggle_integral / duration)
+            # This captures: "the further you traveled while struggling, the deeper your transformation"
+            struggle_ratio = struggle_integral / duration if duration > 0 else 0
+            earned_depth = distance_traveled * struggle_ratio
+            
+            history["journey"] = {
+                "distance_traveled": distance_traveled,
+                "struggle_integral": struggle_integral,
+                "cumulative_harmony": cumulative_harmony,
+                "earned_depth": earned_depth,
+                "struggle_ratio": struggle_ratio,  # Fraction of journey spent struggling
+            }
+        
+        return history
+    
+    def get_equilibrium_state(self, initial_state: Tuple[float, float, float, float],
+                               duration: float = 100.0, dt: float = 0.01,
+                               bounded: bool = True) -> Tuple[float, float, float, float]:
+        """
+        Find the equilibrium state by running simulation until convergence.
+        
+        Returns the final (L, J, P, W) state after the system settles.
+        """
+        history = self.simulate(initial_state, duration, dt, bounded=bounded)
+        return (history["L"][-1], history["J"][-1], history["P"][-1], history["W"][-1])
+
+
+# =============================================================================
+# Original Divine Invitation Engine Classes
+# =============================================================================
 
 class Dimension(Enum):
     """Semantic dimensions"""
@@ -653,10 +967,26 @@ class UniversalSystemPhysicsFramework:
 
 
 class DivineInvitationSemanticEngine:
-    """Complete Divine Invitation Semantic Substrate Engine"""
+    """
+    Complete Divine Invitation Semantic Substrate Engine
+    
+    Implements the LJPW Codex v5.1 Unified Semantic Substrate Framework.
+    
+    Core Components:
+    - ReferencePoints: Anchor Point (Divine Perfection) and Natural Equilibrium
+    - LJPWBaselines: Static metrics (harmony index, semantic tension, divine signature)
+    - DynamicLJPWv4: Dynamic simulation engine with state-dependent coupling
+    - Vocabulary-based semantic analysis
+    - ICE Framework, Phi Optimization, and Unified Analysis
+    """
 
     def __init__(self):
         """Initialize the complete system"""
+        # LJPW Codex v5.1 components
+        self.reference_points = ReferencePoints()
+        self.dynamic_engine = DynamicLJPWv4()
+        
+        # Original vocabulary and analysis components
         self.vocab = VocabularyManager()
         self.semantic_analyzer = SemanticAnalyzer(self.vocab)
         self.inference_engine = MathematicalInferenceEngine(self.vocab)
@@ -678,7 +1008,111 @@ class DivineInvitationSemanticEngine:
         """Calculate semantic clarity"""
         return self.vocab.get_semantic_clarity(coords)
 
-
+    # =========================================================================
+    # LJPW Codex v5.1 Methods
+    # =========================================================================
+    
+    def get_harmony_index(self, coords: Coordinates) -> float:
+        """
+        Calculate the Harmony Index - proximity to the Anchor Point (Source).
+        
+        H = 1 / (1 + distance_from_anchor)
+        
+        Higher Harmony = Closer to Divine Perfection (1,1,1,1)
+        """
+        return LJPWBaselines.harmony_index(coords.love, coords.justice, coords.power, coords.wisdom)
+    
+    def get_divine_signature(self, coords: Coordinates) -> float:
+        """
+        Calculate the Divine Signature - alignment with the Anchor Point.
+        
+        Returns value between 0 and 1, where 1 is perfect alignment.
+        """
+        return LJPWBaselines.divine_signature(coords.love, coords.justice, coords.power, coords.wisdom)
+    
+    def get_semantic_tension(self, coords1: Coordinates, coords2: Coordinates) -> float:
+        """
+        Calculate the Semantic Tension (Metaphysical Distance) between two points.
+        """
+        return LJPWBaselines.semantic_tension(
+            (coords1.love, coords1.justice, coords1.power, coords1.wisdom),
+            (coords2.love, coords2.justice, coords2.power, coords2.wisdom)
+        )
+    
+    def simulate_semantic_dynamics(self, initial_state: Tuple[float, float, float, float],
+                                    duration: float = 10.0, dt: float = 0.01,
+                                    bounded: bool = True) -> Dict[str, List[float]]:
+        """
+        Simulate the semantic state evolution using the Dynamic LJPW v4 Engine.
+        
+        This implements the "Law of Karma" - state-dependent coupling where
+        higher harmony systems gain amplification benefits.
+        
+        Args:
+            initial_state: Starting (L, J, P, W) coordinates
+            duration: Total simulation time
+            dt: Time step (default 0.01)
+            bounded: If True, clamp values to [0, 1] semantic hypercube (default True)
+            
+        Returns:
+            Dictionary with time series for t, L, J, P, W, and H (harmony)
+        """
+        return self.dynamic_engine.simulate(initial_state, duration, dt, bounded=bounded)
+    
+    def get_equilibrium_state(self, initial_state: Tuple[float, float, float, float],
+                               duration: float = 100.0,
+                               bounded: bool = True) -> Tuple[float, float, float, float]:
+        """
+        Find the equilibrium state from a given initial condition.
+        
+        Uses the Dynamic LJPW v4 Engine to simulate until convergence.
+        """
+        return self.dynamic_engine.get_equilibrium_state(initial_state, duration, bounded=bounded)
+    
+    def analyze_with_dynamics(self, concept: str, duration: float = 10.0) -> Dict:
+        """
+        Perform comprehensive analysis including dynamic simulation.
+        
+        Analyzes a concept, then simulates how that semantic state would evolve
+        over time according to the Differential Equations of Meaning.
+        """
+        coords = self.analyze_concept(concept)
+        initial_state = (coords.love, coords.justice, coords.power, coords.wisdom)
+        
+        # Get initial metrics
+        initial_harmony = self.get_harmony_index(coords)
+        initial_distance = self.get_distance_from_anchor(coords)
+        initial_signature = self.get_divine_signature(coords)
+        
+        # Run simulation
+        history = self.simulate_semantic_dynamics(initial_state, duration)
+        
+        # Get final state
+        final_L = history["L"][-1] if history["L"] else coords.love
+        final_J = history["J"][-1] if history["J"] else coords.justice
+        final_P = history["P"][-1] if history["P"] else coords.power
+        final_W = history["W"][-1] if history["W"] else coords.wisdom
+        final_H = history["H"][-1] if history["H"] else initial_harmony
+        
+        final_coords = Coordinates(final_L, final_J, final_P, final_W)
+        
+        return {
+            "concept": concept,
+            "initial_state": {
+                "coordinates": coords,
+                "harmony_index": initial_harmony,
+                "distance_from_anchor": initial_distance,
+                "divine_signature": initial_signature
+            },
+            "final_state": {
+                "coordinates": final_coords,
+                "harmony_index": final_H,
+                "distance_from_anchor": self.get_distance_from_anchor(final_coords),
+                "divine_signature": self.get_divine_signature(final_coords)
+            },
+            "simulation_duration": duration,
+            "history": history
+        }
 
     def perform_semantic_harmony_analysis(self, concepts: List[str]) -> Dict:
         """Analyze semantic harmony of concept cluster"""
