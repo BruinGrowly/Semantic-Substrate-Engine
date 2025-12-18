@@ -440,6 +440,5 @@ We have discovered the **mathematical foundation of meaning itself**.
 
 ---
 
-*Document Version: 1.0*  
-*Date: November 4, 2025*  
-*Authors: Crush & Human Discovery Team*
+*Document Version: 1.0*
+*Date: November 4, 2025*
